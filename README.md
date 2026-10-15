@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ModeroIQ - Next.js 15 & MongoDB Production Starter Template
 
-## Getting Started
+A reusable, production-ready full-stack template built on **Next.js 15 (App Router)** with **MongoDB Authentication (Auth.js v5)**, strict **TypeScript**, **Tailwind CSS**, and hydration-safe **Dark/Light mode**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 15+ (App Router, Turbopack, Partial Prerendering)
+- **Language**: TypeScript (Strict mode, zero `any` types)
+- **Database**: MongoDB (Native driver with singleton caching and `@auth/mongodb-adapter`)
+- **Authentication**: Auth.js (NextAuth v5 beta) with Credentials provider (Email/Password) and JWT strategy
+- **Password Hashing**: `bcryptjs`
+- **Validation**: `zod` runtime schemas for all boundary inputs
+- **Theming**: `next-themes` (hydration-safe, zero cascading re-renders via `useSyncExternalStore`)
+- **UI & Styling**: Tailwind CSS, `class-variance-authority` (cva), `clsx`, `tailwind-merge` (`cn`), and `lucide-react`
+
+---
+
+## 🏛️ Core Architectural Principles
+
+1. **Page Wrapper Pattern**:
+   All `app/**/page.tsx` files are strictly thin wrappers (<20 lines) delegating layout and logic to corresponding components in `components/`.
+2. **Strict TypeScript & Zod Validation**:
+   No `any` types allowed. All server actions, API routes, and hooks feature explicit return types. All form inputs and API payloads are validated via Zod schemas at runtime boundaries.
+3. **Standardized Server Responses**:
+   Server actions return `{ success: boolean; data?: T; error?: string }`. Database error details are logged server-side and never leaked to the client.
+4. **Server Components First**:
+   Data is read on the server using Server Components with zero client-side `useEffect` data fetching leaks. Interactive UI state is pushed down to leaf components and custom hooks (`hooks/useLoginForm.ts`, `hooks/useSignupForm.ts`).
+5. **Component Decomposition**:
+   All UI components remain small, focused, and under 100 lines of code.
+
+---
+
+## 📁 File Structure
+
+```text
+modero-iq/
+├── actions/
+│   └── auth.ts                      # Server actions (signupUser, logoutUser)
+├── app/
+│   ├── api/
+│   │   └── auth/[...nextauth]/
+│   │       └── route.ts             # Auth.js API route handlers
+│   ├── dashboard/
+│   │   └── page.tsx                 # Protected route (Thin wrapper)
+│   ├── login/
+│   │   └── page.tsx                 # Login route (Thin wrapper)
+│   ├── signup/
+│   │   └── page.tsx                 # Signup route (Thin wrapper)
+│   ├── globals.css                  # Tailwind styles and theme CSS variables
+│   ├── layout.tsx                   # Root layout with ThemeProvider, Navbar, Footer
+│   └── page.tsx                     # Landing page (Thin wrapper)
+├── auth.ts                          # NextAuth v5 configuration and provider setup
+├── components/
+│   ├── dashboard/                   # Dashboard components (Header, Stats, Loader, Skeleton)
+│   ├── home/                        # Landing page content and Feature cards
+│   ├── login/                       # LoginForm and LoginPageContent
+│   ├── shared/                      # Navbar, Footer, ThemeToggle, AuthNav
+│   ├── signup/                      # SignupForm and SignupPageContent
+│   └── ui/                          # Reusable CVA primitives (Button, Input)
+├── hooks/
+│   ├── useLoginForm.ts              # Form state and submission hook for login
+│   └── useSignupForm.ts             # Form state and submission hook for signup
+├── lib/
+│   ├── db.ts                        # MongoDB connection pooling & singleton caching
+│   ├── utils.ts                     # cn() class merger
+│   └── validations/
+│       └── auth.ts                  # Zod schemas for signup and login
+├── providers/
+│   ├── AuthProvider.tsx             # NextAuth SessionProvider wrapper
+│   └── ThemeProvider.tsx            # next-themes Provider wrapper
+├── types/
+│   ├── index.ts                     # ActionResponse<T> and SafeUser types
+│   └── next-auth.d.ts               # NextAuth type augmentations
+├── .env.example                     # Environment template
+└── .env.local                       # Local environment variables
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Environment Variables Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the `modero-iq` root directory:
 
-## Learn More
+```env
+# MongoDB Connection String
+MONGODB_URI="mongodb://localhost:27017/moderoiq"
 
-To learn more about Next.js, take a look at the following resources:
+# Auth.js / NextAuth Secret
+AUTH_SECRET="your-secure-random-32-char-secret-key"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Application Base URL
+AUTH_URL="http://localhost:3000"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🏃 Getting Started
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Install Dependencies
+```bash
+npm install
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2. Start the Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+### 3. Check Types & Linter
+```bash
+npx tsc --noEmit
+npm run lint
+```
+
+### 4. Build for Production
+```bash
+npm run build
+npm start
+```
