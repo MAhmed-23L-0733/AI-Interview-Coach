@@ -10,6 +10,10 @@ export interface UseLoginFormReturn {
   setEmail: (val: string) => void;
   password: string;
   setPassword: (val: string) => void;
+  rememberMe: boolean;
+  setRememberMe: React.Dispatch<React.SetStateAction<boolean>>;
+  showPassword: boolean;
+  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
   fieldErrors: { email?: string; password?: string };
   formError: string | null;
   isLoading: boolean;
@@ -20,6 +24,8 @@ export function useLoginForm(): UseLoginFormReturn {
   const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [rememberMe, setRememberMe] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
   const [fieldErrors, setFieldErrors] = React.useState<{ email?: string; password?: string }>({});
   const [formError, setFormError] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -68,6 +74,10 @@ export function useLoginForm(): UseLoginFormReturn {
     setEmail,
     password,
     setPassword,
+    rememberMe,
+    setRememberMe,
+    showPassword,
+    setShowPassword,
     fieldErrors,
     formError,
     isLoading,

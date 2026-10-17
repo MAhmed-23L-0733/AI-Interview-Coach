@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Navbar } from "@/components/shared/Navbar";
 import { NavbarSkeleton } from "@/components/shared/NavbarSkeleton";
 import { Footer } from "@/components/shared/Footer";
+import { ConditionalLayout } from "@/components/shared/ConditionalLayout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "ModeroIQ | Production Next.js 15 & MongoDB Template",
+  title: "AI Interview Coach | Technical Interview Practice",
   description:
-    "Production-ready Next.js 15 template featuring MongoDB authentication with Auth.js, dark/light mode, and strict TypeScript.",
+    "Master technical interviews with voice-led AI practice, real-time feedback, and modular diagnostics.",
 };
 
 interface RootLayoutProps {
@@ -34,7 +35,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-screen flex-col font-sans">
         <ThemeProvider
@@ -43,11 +44,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<NavbarSkeleton />}>
-            <Navbar />
-          </Suspense>
+          <ConditionalLayout>
+            <Suspense fallback={<NavbarSkeleton />}>
+              <Navbar />
+            </Suspense>
+          </ConditionalLayout>
           <main className="flex flex-1 flex-col">{children}</main>
-          <Footer />
+          <ConditionalLayout>
+            <Footer />
+          </ConditionalLayout>
         </ThemeProvider>
       </body>
     </html>

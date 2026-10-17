@@ -1,12 +1,15 @@
+import type { Metadata } from "next";
 import { SignupPageContent } from "@/components/signup/SignupPageContent";
 
+export const metadata: Metadata = {
+  title: "Create Account | AI Interviewing Coach",
+  description:
+    "Sign up for AI Interviewing Coach to build confidence through focused, voice-powered interview practice.",
+};
+
 /**
- * Thin Page Wrapper for the Signup route.
+ * Thin Next.js Server Page Wrapper for the Signup route.
  */
 export default function SignupPage(): React.JSX.Element {
-  return (
-    <div className="flex-1">
-      <SignupPageContent />
-    </div>
-  );
+  return <SignupPageContent />;
 }

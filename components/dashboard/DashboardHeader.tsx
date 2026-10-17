@@ -1,29 +1,35 @@
 import * as React from "react";
-import { ShieldCheck, User } from "lucide-react";
 
 interface DashboardHeaderProps {
-  name: string | null;
-  email: string | null;
+  name?: string | null;
+  initials?: string;
 }
 
-export function DashboardHeader({ name, email }: DashboardHeaderProps): React.JSX.Element {
+export function DashboardHeader({
+  name = "Alex",
+  initials = "AM",
+}: DashboardHeaderProps): React.JSX.Element {
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-zinc-200 pb-6 dark:border-zinc-800">
-      <div className="flex items-center gap-4">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 shadow">
-          <User className="h-7 w-7" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Welcome, {name || "User"}
-          </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">{email}</p>
+    <header className="flex items-center justify-between">
+      {/* Left: Personalized Greeting */}
+      <div>
+        <h1 className="text-2xl font-bold text-white tracking-tight sm:text-3xl">
+          Good morning, {name || "Alex"}
+        </h1>
+        <p className="mt-1 text-sm text-slate-400">
+          Ready for another focused practice session?
+        </p>
+      </div>
+
+      {/* Right: User Profile Avatar Badge */}
+      <div className="flex items-center">
+        <div
+          aria-label={`User profile for ${name || "Alex"}`}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-[#334155] bg-[#1E293B] text-xs font-bold text-slate-200 shadow-sm transition-transform hover:scale-105"
+        >
+          {initials}
         </div>
       </div>
-      <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300">
-        <ShieldCheck className="h-4 w-4" />
-        <span>Authenticated Session</span>
-      </div>
-    </div>
+    </header>
   );
 }

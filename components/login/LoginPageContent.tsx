@@ -1,35 +1,60 @@
+import * as React from "react";
 import Link from "next/link";
+import { LoginShowcase } from "@/components/login/LoginShowcase";
 import { LoginForm } from "@/components/login/LoginForm";
-import { ShieldCheck } from "lucide-react";
+import { AudioLines } from "lucide-react";
 
+/**
+ * Server component providing the split-screen layout for the login route.
+ * Left: Branded Showcase Panel (desktop only).
+ * Right: Authentication Form Panel (desktop & mobile).
+ */
 export function LoginPageContent(): React.JSX.Element {
   return (
-    <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/60">
-        <div className="text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900">
-            <ShieldCheck className="h-6 w-6" />
-          </div>
-          <h2 className="mt-4 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
-            Welcome back
-          </h2>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            Sign in to your account with your credentials
-          </p>
-        </div>
+    <div className="flex min-h-dvh w-full bg-[#0B0F17]">
+      {/* Left Showcase Brand Panel (Hidden on screens < 1024px) */}
+      <LoginShowcase />
 
-        <LoginForm />
-
-        <div className="text-center text-sm text-zinc-600 dark:text-zinc-400">
-          Don&apos;t have an account?{" "}
+      {/* Right Auth Form Panel */}
+      <section className="flex flex-1 flex-col justify-between p-6 sm:p-10 lg:p-12 xl:p-16">
+        {/* Compact Top Brand Mark (Visible only on screens < 1024px, links to homepage) */}
+        <div className="flex items-center justify-center pt-4 pb-2 lg:hidden">
           <Link
-            href="/signup"
-            className="font-medium text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-100"
+            href="/"
+            className="flex items-center gap-3 transition-opacity hover:opacity-90"
           >
-            Create one now
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#3B82F6] shadow-[0_0_12px_rgba(59,130,246,0.35)]">
+              <AudioLines className="h-5 w-5 text-white" strokeWidth={2.2} />
+            </div>
+            <span className="text-base font-bold tracking-tight text-white">
+              AI Interviewing Coach
+            </span>
           </Link>
         </div>
-      </div>
+
+        {/* Centered Form Container */}
+        <div className="mx-auto my-auto w-full max-w-[400px] py-8 sm:py-12">
+          {/* Header Typography Hierarchy */}
+          <div className="mb-8 space-y-1.5">
+            <span className="text-xs font-semibold tracking-wider text-blue-400 uppercase">
+              Welcome back
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-white">
+              Log in to continue
+            </h2>
+            <p className="text-sm text-slate-400">
+              Continue your interview preparation.
+            </p>
+          </div>
+
+          <LoginForm />
+        </div>
+
+        {/* Bottom Legal Notice */}
+        <p className="py-4 text-center text-xs text-slate-500">
+          By continuing, you agree to our Terms of Service and Privacy Policy.
+        </p>
+      </section>
     </div>
   );
 }

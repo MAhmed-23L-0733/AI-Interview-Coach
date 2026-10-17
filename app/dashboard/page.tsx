@@ -3,15 +3,13 @@ import { DashboardLoader } from "@/components/dashboard/DashboardLoader";
 import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton";
 
 /**
- * Thin Page Wrapper for the Protected Dashboard route.
- * Wraps server auth-check loader in Suspense to support Next.js partial prefetching and streaming.
+ * Thin Next.js Server Page Wrapper for the AI Interview Coach Dashboard.
+ * Encapsulates dynamic data access inside Suspense for streaming and prerendering.
  */
 export default function DashboardPage(): React.JSX.Element {
   return (
-    <div className="flex-1">
-      <Suspense fallback={<DashboardSkeleton />}>
-        <DashboardLoader />
-      </Suspense>
-    </div>
+    <Suspense fallback={<DashboardSkeleton />}>
+      <DashboardLoader />
+    </Suspense>
   );
 }

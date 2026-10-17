@@ -13,13 +13,10 @@ export interface UseSignupFormReturn {
   setEmail: (val: string) => void;
   password: string;
   setPassword: (val: string) => void;
-  confirmPassword: string;
-  setConfirmPassword: (val: string) => void;
   fieldErrors: {
     name?: string;
     email?: string;
     password?: string;
-    confirmPassword?: string;
   };
   formError: string | null;
   isLoading: boolean;
@@ -31,12 +28,10 @@ export function useSignupForm(): UseSignupFormReturn {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [fieldErrors, setFieldErrors] = React.useState<{
     name?: string;
     email?: string;
     password?: string;
-    confirmPassword?: string;
   }>({});
   const [formError, setFormError] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -46,20 +41,9 @@ export function useSignupForm(): UseSignupFormReturn {
     setFormError(null);
     setFieldErrors({});
 
-    const validationResult = signupSchema.safeParse({
-      name,
-      email,
-      password,
-      confirmPassword,
-    });
-
+    const validationResult = signupSchema.safeParse({ name, email, password });
     if (!validationResult.success) {
-      const errors: {
-        name?: string;
-        email?: string;
-        password?: string;
-        confirmPassword?: string;
-      } = {};
+      const errors: { name?: string; email?: string; password?: string } = {};
       for (const issue of validationResult.error.issues) {
         const fieldName = issue.path[0] as keyof typeof errors;
         if (fieldName && !errors[fieldName]) {
@@ -72,14 +56,9 @@ export function useSignupForm(): UseSignupFormReturn {
 
     try {
       setIsLoading(true);
-      const res = await signupUser({
-        name: validationResult.data.name,
-        email: validationResult.data.email,
-        password: validationResult.data.password,
-      });
-
+      const res = await signupUser(validationResult.data);
       if (!res.success) {
-        setFormError(res.error || "Registration failed. Please check your inputs.");
+        setFormError(res.error || "Registration failed. Please try again.");
         setIsLoading(false);
         return;
       }
@@ -110,8 +89,6 @@ export function useSignupForm(): UseSignupFormReturn {
     setEmail,
     password,
     setPassword,
-    confirmPassword,
-    setConfirmPassword,
     fieldErrors,
     formError,
     isLoading,
