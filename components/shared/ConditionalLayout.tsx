@@ -18,6 +18,10 @@ export function ConditionalLayout({
   if (
     pathname &&
     (pathname.startsWith("/dashboard") ||
+      pathname.startsWith("/profile") ||
+      pathname.startsWith("/history") ||
+      pathname.startsWith("/settings") ||
+      pathname.startsWith("/interview") ||
       pathname.startsWith("/login") ||
       pathname.startsWith("/signup"))
   ) {

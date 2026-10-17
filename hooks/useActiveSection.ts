@@ -10,7 +10,6 @@ export function useActiveSection(sectionIds: readonly string[]): string | null {
   useEffect(() => {
     // Active section highlighting only applies on the homepage
     if (pathname !== "/") {
-      setActiveSection(null);
       return;
     }
 
@@ -87,5 +86,5 @@ export function useActiveSection(sectionIds: readonly string[]): string | null {
     };
   }, [pathname, sectionIds]);
 
-  return activeSection;
+  return pathname === "/" ? activeSection : null;
 }

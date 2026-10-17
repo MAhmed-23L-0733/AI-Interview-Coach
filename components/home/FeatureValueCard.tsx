@@ -25,7 +25,7 @@ export function FeatureValueCard({
   badgeTextClass,
 }: FeatureValueCardProps): React.JSX.Element {
   return (
-    <div className="rounded-2xl bg-[#111827] p-8 border border-[#1F2937] flex flex-col justify-between hover:border-blue-500/40 transition-all duration-300">
+    <div className="rounded-2xl bg-[#111827] p-8 border border-[#1F2937] flex flex-col justify-between hover:border-blue-500/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 h-full">
       <div>
         <div
           className={cn(

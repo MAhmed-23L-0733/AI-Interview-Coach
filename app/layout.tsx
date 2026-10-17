@@ -44,15 +44,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ConditionalLayout>
-            <Suspense fallback={<NavbarSkeleton />}>
+          <Suspense fallback={<NavbarSkeleton />}>
+            <ConditionalLayout>
               <Navbar />
-            </Suspense>
-          </ConditionalLayout>
+            </ConditionalLayout>
+          </Suspense>
           <main className="flex flex-1 flex-col">{children}</main>
-          <ConditionalLayout>
-            <Footer />
-          </ConditionalLayout>
+          <Suspense fallback={null}>
+            <ConditionalLayout>
+              <Footer />
+            </ConditionalLayout>
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

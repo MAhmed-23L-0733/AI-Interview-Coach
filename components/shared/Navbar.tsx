@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { auth } from "@/auth";
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { AuthNav } from "@/components/shared/AuthNav";
 import { NavbarNavLinks } from "@/components/shared/NavbarNavLinks";
 import { NavbarMobileDrawer } from "@/components/shared/NavbarMobileDrawer";

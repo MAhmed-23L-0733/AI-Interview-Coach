@@ -22,7 +22,7 @@ export function TopicCard({
   return (
     <div
       className={cn(
-        "group p-5 rounded-2xl bg-[#111827] border transition-all duration-200 relative overflow-hidden flex flex-col justify-between",
+        "group p-5 rounded-2xl bg-[#111827] border transition-all duration-300 relative overflow-hidden flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5",
         isHighlighted
           ? "border-blue-500/70 shadow-[0_0_20px_rgba(59,130,246,0.15)]"
           : "border-[#1F2937] hover:border-blue-500/50",
