@@ -4,8 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useSignupForm } from "@/hooks/useSignupForm";
 import { SignupInput } from "@/components/signup/SignupInput";
-import { AlertCircle, Eye, EyeOff, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { AlertCircle, ChevronRight, Eye, EyeOff, Loader2 } from "lucide-react";
 
 export function SignupForm(): React.JSX.Element {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -15,9 +14,9 @@ export function SignupForm(): React.JSX.Element {
   } = useSignupForm();
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       {formError && (
-        <div className="flex items-center gap-2.5 rounded-xl border border-red-900/60 bg-red-950/40 p-3.5 text-sm text-red-400">
+        <div className="flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-950/40 p-2.5 text-xs text-red-400">
           <AlertCircle className="h-4 w-4 shrink-0" />
           <span>{formError}</span>
         </div>
@@ -50,7 +49,7 @@ export function SignupForm(): React.JSX.Element {
         id="password"
         type={showPassword ? "text" : "password"}
         label="Password"
-        placeholder="Enter your password"
+        placeholder="Create a strong password"
         autoComplete="new-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -61,9 +60,9 @@ export function SignupForm(): React.JSX.Element {
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-slate-400 transition-colors hover:text-white focus:outline-none"
+            className="flex h-11 w-11 items-center justify-center text-slate-400 hover:text-white"
           >
-            {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         }
       />
@@ -71,27 +70,27 @@ export function SignupForm(): React.JSX.Element {
       <button
         type="submit"
         disabled={isLoading}
-        className={cn(
-          "flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#3B82F6] font-semibold text-white shadow-[0_4px_20px_rgba(37,99,235,0.35)] transition-all duration-200",
-          "hover:bg-[#2563EB] active:scale-[0.99] disabled:pointer-events-none disabled:opacity-50"
-        )}
+        className="flex min-h-[44px] h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#3B82F6] text-sm font-semibold text-white shadow-[0_4px_20px_rgba(37,99,235,0.35)] transition-all duration-200 hover:bg-[#2563EB] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin text-white" />
+            <Loader2 className="h-4 w-4 animate-spin" />
             <span>Creating account...</span>
           </>
         ) : (
-          <span>Create account &gt;</span>
+          <>
+            <span>Create account</span>
+            <ChevronRight className="h-4 w-4" />
+          </>
         )}
       </button>
 
-      <p className="pt-2 text-center text-sm text-slate-400">
+      <div className="pt-2 text-center text-xs text-slate-400">
         Already have an account?{" "}
-        <Link href="/login" className="font-medium text-[#3B82F6] underline-offset-4 transition-colors hover:underline">
+        <Link href="/login" className="font-medium text-[#3B82F6] transition-colors hover:text-blue-400 hover:underline">
           Log in
         </Link>
-      </p>
+      </div>
     </form>
   );
 }

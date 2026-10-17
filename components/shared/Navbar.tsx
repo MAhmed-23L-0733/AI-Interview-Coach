@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { auth } from "@/auth";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { AuthNav } from "@/components/shared/AuthNav";
+import { NavbarNavLinks } from "@/components/shared/NavbarNavLinks";
 import { NavbarMobileDrawer } from "@/components/shared/NavbarMobileDrawer";
 import { AudioWaveform, ArrowRight } from "lucide-react";
 import type { SafeUser } from "@/types";
@@ -32,23 +33,10 @@ export async function Navbar(): Promise<React.JSX.Element> {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <Link href="#features" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-            Features
-          </Link>
-          <Link href="#topics" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-            Topics
-          </Link>
-          <Link href="#how-it-works" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-            How It Works
-          </Link>
-          <Link href="#pricing" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-            Pricing
-          </Link>
-        </nav>
+        <NavbarNavLinks />
 
         <div className="hidden md:flex items-center gap-4">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           {safeUser ? (
             <div className="flex items-center gap-3">
               <Link

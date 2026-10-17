@@ -11,5 +11,9 @@ export const metadata: Metadata = {
  * Thin Next.js Server Page Wrapper for the Signup route.
  */
 export default function SignupPage(): React.JSX.Element {
-  return <SignupPageContent />;
+  return (
+    <div className="flex-1 bg-[#0B0F17]">
+      <SignupPageContent />
+    </div>
+  );
 }

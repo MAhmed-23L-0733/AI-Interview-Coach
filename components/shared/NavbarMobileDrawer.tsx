@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { NAV_ITEMS, SECTION_IDS } from "@/components/shared/navData";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { cn } from "@/lib/utils";
 import type { SafeUser } from "@/types";
 
 interface NavbarMobileDrawerProps {
@@ -12,6 +16,19 @@ interface NavbarMobileDrawerProps {
 
 export function NavbarMobileDrawer({ user }: NavbarMobileDrawerProps): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const activeSection = useActiveSection(SECTION_IDS);
+
+  const handleNavClick = (sectionId: string): void => {
+    setIsOpen(false);
+    if (pathname === "/") {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        window.history.pushState(null, "", `#${sectionId}`);
+      }
+    }
+  };
 
   return (
     <div className="md:hidden flex items-center gap-2">
@@ -27,35 +44,28 @@ export function NavbarMobileDrawer({ user }: NavbarMobileDrawerProps): React.JSX
 
       {isOpen && (
         <div className="fixed inset-x-0 top-20 z-50 border-b border-[#1F2937] bg-[#0B0F17]/95 p-6 backdrop-blur-xl shadow-2xl">
-          <nav className="flex flex-col gap-4 text-base font-medium">
-            <Link
-              href="#features"
-              onClick={() => setIsOpen(false)}
-              className="flex min-h-[44px] items-center text-slate-300 hover:text-white transition-colors"
-            >
-              Features
-            </Link>
-            <Link
-              href="#topics"
-              onClick={() => setIsOpen(false)}
-              className="flex min-h-[44px] items-center text-slate-300 hover:text-white transition-colors"
-            >
-              Topics
-            </Link>
-            <Link
-              href="#how-it-works"
-              onClick={() => setIsOpen(false)}
-              className="flex min-h-[44px] items-center text-slate-300 hover:text-white transition-colors"
-            >
-              How It Works
-            </Link>
-            <Link
-              href="#pricing"
-              onClick={() => setIsOpen(false)}
-              className="flex min-h-[44px] items-center text-slate-300 hover:text-white transition-colors"
-            >
-              Pricing
-            </Link>
+          <nav className="flex flex-col gap-2 text-base font-medium">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.sectionId;
+
+              return (
+                <Link
+                  key={item.sectionId}
+                  href={item.href}
+                  onClick={() => handleNavClick(item.sectionId)}
+                  className={cn(
+                    "flex min-h-[44px] items-center px-4 rounded-xl border transition-colors",
+                    isActive
+                      ? "bg-blue-500/10 border-blue-500/30 text-blue-400 font-semibold shadow-xs"
+                      : "border-transparent text-slate-300 hover:bg-slate-800/40 hover:text-white"
+                  )}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+
             <div className="my-2 h-px bg-[#1F2937]" />
             {user ? (
               <Link

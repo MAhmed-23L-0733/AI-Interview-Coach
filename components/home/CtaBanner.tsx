@@ -3,7 +3,7 @@ import { Zap, CheckCircle2 } from "lucide-react";
 
 export function CtaBanner(): React.JSX.Element {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden" id="pricing">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="relative rounded-3xl bg-[#111827] border border-blue-500/40 p-10 md:p-16 text-center overflow-hidden shadow-2xl">
           {/* Ambient Glow Layer */}
