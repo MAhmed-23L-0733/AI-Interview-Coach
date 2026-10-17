@@ -27,9 +27,13 @@ export function AppShellMobileNav({
             AI Interview Coach
           </span>
         </div>
-        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#334155] bg-[#1E293B] text-xs font-bold text-slate-200">
+        <Link
+          href="/profile"
+          aria-label="User profile and account settings"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-[#334155] bg-[#1E293B] text-xs font-bold text-slate-200 transition-colors hover:border-[#3B82F6] hover:text-white"
+        >
           {initials}
-        </div>
+        </Link>
       </header>
 
       <nav

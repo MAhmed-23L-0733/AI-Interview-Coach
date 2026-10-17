@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+import { useSidebarStore } from "@/lib/stores/useSidebarStore";
+import { cn } from "@/lib/utils";
 import { useSettingsForm } from "@/hooks/useSettingsForm";
 import type { UserSettingsInput } from "@/lib/validations/settings";
 import { SettingsHeader } from "./SettingsHeader";
@@ -19,6 +21,7 @@ export function SettingsPageContent({
   initialSettings,
   initials = "AM",
 }: SettingsPageContentProps): React.JSX.Element {
+  const { isExpanded } = useSidebarStore();
   const {
     form,
     isSaving,
@@ -35,11 +38,16 @@ export function SettingsPageContent({
 
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex">
-      {/* 72px Desktop Navigation Rail Dock & Mobile Bar */}
+      {/* Desktop Sidebar & Mobile Nav */}
       <DashboardSidebar initials={initials} />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full md:pl-[72px] transition-all">
+      <main
+        className={cn(
+          "flex-1 w-full transition-[padding] duration-300 ease-in-out",
+          isExpanded ? "md:pl-64" : "md:pl-[72px]"
+        )}
+      >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
           {/* Header */}
           <SettingsHeader

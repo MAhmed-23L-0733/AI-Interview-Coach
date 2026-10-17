@@ -3,6 +3,8 @@
 import * as React from "react";
 import { CheckCircle2, Loader2, Save, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSidebarStore } from "@/lib/stores/useSidebarStore";
+import { cn } from "@/lib/utils";
 
 interface SettingsBottomBarProps {
   isSaving: boolean;
@@ -21,6 +23,8 @@ export function SettingsBottomBar({
   onDiscard,
   onSave,
 }: SettingsBottomBarProps): React.JSX.Element {
+  const { isExpanded } = useSidebarStore();
+
   return (
     <>
       <AnimatePresence>
@@ -29,7 +33,10 @@ export function SettingsBottomBar({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-20 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl border shadow-xl bg-[#1E293B] border-[#3B82F6] text-white text-sm"
+            className={cn(
+              "fixed right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl border shadow-xl bg-[#1E293B] border-[#3B82F6] text-white text-sm",
+              "bottom-32 md:bottom-20"
+            )}
           >
             <CheckCircle2 className={`w-4 h-4 ${toast.type === "success" ? "text-[#10B981]" : "text-amber-400"}`} />
             <span>{toast.message}</span>
@@ -44,7 +51,12 @@ export function SettingsBottomBar({
         )}
       </AnimatePresence>
 
-      <footer className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0F17]/95 backdrop-blur-md border-t border-[#1F2937] py-3 px-6 lg:px-12 flex justify-between items-center md:pl-[92px]">
+      <footer
+        className={cn(
+          "fixed bottom-16 md:bottom-0 right-0 z-30 bg-[#0B0F17]/95 backdrop-blur-md border-t border-[#1F2937] py-3 px-4 sm:px-6 lg:px-8 flex justify-between items-center transition-[left] duration-300 ease-in-out",
+          isExpanded ? "left-0 md:left-64" : "left-0 md:left-[72px]"
+        )}
+      >
         <div className="flex items-center gap-2 text-xs text-slate-400">
           <CheckCircle2 className="text-[#10B981] w-4 h-4" />
           <span className="hidden sm:inline">

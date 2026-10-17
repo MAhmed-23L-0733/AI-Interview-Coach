@@ -26,9 +26,13 @@ export function ProfileMobileNav({ userInitials = "AM" }: ProfileMobileNavProps)
             PRO
           </span>
         </div>
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-xs font-bold text-white ring-2 ring-blue-500/80">
+        <Link
+          href="/profile"
+          aria-label="User Profile"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-xs font-bold text-white ring-2 ring-blue-500/80"
+        >
           {userInitials}
-        </div>
+        </Link>
       </header>
 
       {/* Mobile Bottom Navigation Bar (Touch target >= 44px) */}

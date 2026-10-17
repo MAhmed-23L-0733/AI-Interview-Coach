@@ -1,5 +1,6 @@
 import * as React from "react";
 import { AppShellDock } from "@/components/shared/AppShellDock";
+import { DashboardLayoutWrapper } from "@/components/dashboard/DashboardLayoutWrapper";
 import { HistoryHeader } from "@/components/history/HistoryHeader";
 import { HistoryMetricsGrid } from "@/components/history/HistoryMetricsGrid";
 import { HistoryFilterBar } from "@/components/history/HistoryFilterBar";
@@ -20,7 +21,7 @@ export async function HistoryPageContent({
     <div className="min-h-screen bg-[#0B0F17] text-slate-100">
       <AppShellDock initials="AM" />
 
-      <main className="flex flex-col pb-24 pt-8 sm:px-6 md:pb-12 md:pl-[72px] lg:px-8">
+      <DashboardLayoutWrapper className="flex flex-col pt-8 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-6xl space-y-8 px-4 sm:px-0">
           <HistoryHeader />
           <HistoryMetricsGrid metrics={data.metrics} />
@@ -33,7 +34,7 @@ export async function HistoryPageContent({
             <HistorySessionsTable sessions={data.sessions} />
           </section>
         </div>
-      </main>
+      </DashboardLayoutWrapper>
     </div>
   );
 }

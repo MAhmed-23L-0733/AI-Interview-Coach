@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import type { ProfileData } from "@/lib/validations/profile";
 import { useProfileStore } from "@/lib/stores/useProfileStore";
 import { AppShellDock } from "@/components/profile/AppShellDock";
-import { ProfileMobileNav } from "@/components/profile/ProfileMobileNav";
+import { DashboardLayoutWrapper } from "@/components/dashboard/DashboardLayoutWrapper";
 import { ProfileHeader } from "@/components/profile/ProfileHeader";
 import { ProfileTitleBar } from "@/components/profile/ProfileTitleBar";
 import { DeveloperIdentityCard } from "@/components/profile/DeveloperIdentityCard";
@@ -27,14 +27,11 @@ export function ProfilePageContent({ initialData }: ProfilePageContentProps): Re
 
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex flex-col font-sans selection:bg-blue-500/30 selection:text-blue-200">
-      {/* 1. Left Navigation Rail (Desktop) */}
+      {/* Persistent Left Sidebar Navigation Rail / Mobile Nav */}
       <AppShellDock userInitials={profile.avatarInitials || "AM"} />
 
-      {/* 2. Mobile Header & Bottom Navigation */}
-      <ProfileMobileNav userInitials={profile.avatarInitials || "AM"} />
-
-      {/* Main Workspace Canvas */}
-      <div className="flex flex-1 flex-col md:pl-[72px]">
+      {/* Main Workspace Canvas with dynamic sidebar padding */}
+      <DashboardLayoutWrapper className="flex flex-1 flex-col">
         {/* Top Header Navigation */}
         <ProfileHeader />
 
@@ -59,9 +56,9 @@ export function ProfilePageContent({ initialData }: ProfilePageContentProps): Re
           </div>
         </main>
 
-        {/* 3. Bottom Sticky Bar */}
+        {/* Bottom Sticky Bar */}
         <ProfileStickyBar />
-      </div>
+      </DashboardLayoutWrapper>
     </div>
   );
 }

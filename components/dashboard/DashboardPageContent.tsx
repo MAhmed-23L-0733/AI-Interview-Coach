@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+import { DashboardLayoutWrapper } from "@/components/dashboard/DashboardLayoutWrapper";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { NextSessionCard } from "@/components/dashboard/NextSessionCard";
 import { TopicSelector } from "@/components/dashboard/TopicSelector";
@@ -32,11 +33,11 @@ export function DashboardPageContent({
 
   return (
     <div className="relative min-h-screen w-full bg-[#0B0F17] text-white">
-      {/* Persistent Left Sidebar Navigation Rail (72px desktop) / Mobile Nav */}
+      {/* Persistent Left Sidebar Navigation Rail / Mobile Nav */}
       <DashboardSidebar initials={userInitials} />
 
-      {/* Main Content Area offset for 72px desktop sidebar */}
-      <main className="min-h-screen pb-24 md:pb-12 md:pl-[72px]">
+      {/* Main Content Area responsive to expanded/retracted sidebar */}
+      <DashboardLayoutWrapper>
         <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
           {/* Greeting Header */}
           <DashboardHeader name={userName} initials={userInitials} />
@@ -50,7 +51,7 @@ export function DashboardPageContent({
           {/* Recent Session History */}
           <RecentInterviewsList />
         </div>
-      </main>
+      </DashboardLayoutWrapper>
     </div>
   );
 }
