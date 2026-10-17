@@ -18,23 +18,31 @@ export async function getProfile(): Promise<ActionResponse<ProfileData>> {
       email: session.user.email.toLowerCase(),
     });
 
+    const sessionName = session.user.name || DEFAULT_PROFILE.name;
+
     if (!user) {
-      return { success: true, data: DEFAULT_PROFILE };
+      return {
+        success: true,
+        data: {
+          ...DEFAULT_PROFILE,
+          name: sessionName,
+          email: session.user.email,
+          avatarInitials: getInitials(sessionName),
+        },
+      };
     }
 
-    const initials = (user.name || "AM")
-      .split(" ")
-      .map((part: string) => part[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
+    const resolvedName =
+      typeof user.name === "string" && user.name.trim()
+        ? user.name
+        : sessionName;
 
     return {
       success: true,
       data: {
         ...DEFAULT_PROFILE,
-        name: typeof user.name === "string" ? user.name : DEFAULT_PROFILE.name,
-        email: typeof user.email === "string" ? user.email : DEFAULT_PROFILE.email,
+        name: resolvedName,
+        email: typeof user.email === "string" ? user.email : session.user.email,
         targetRole: typeof user.targetRole === "string" ? user.targetRole : DEFAULT_PROFILE.targetRole,
         seniority: typeof user.seniority === "string" ? user.seniority : DEFAULT_PROFILE.seniority,
         targetCompanies: Array.isArray(user.targetCompanies) ? user.targetCompanies : DEFAULT_PROFILE.targetCompanies,
@@ -42,13 +50,17 @@ export async function getProfile(): Promise<ActionResponse<ProfileData>> {
         portfolioUrl: typeof user.portfolioUrl === "string" ? user.portfolioUrl : DEFAULT_PROFILE.portfolioUrl,
         allowInterruption: typeof user.allowInterruption === "boolean" ? user.allowInterruption : DEFAULT_PROFILE.allowInterruption,
         autoComplexityAnalysis: typeof user.autoComplexityAnalysis === "boolean" ? user.autoComplexityAnalysis : DEFAULT_PROFILE.autoComplexityAnalysis,
-        avatarInitials: initials || "AM",
+        avatarInitials: getInitials(resolvedName),
       },
     };
   } catch (error) {
     console.error("[GET_PROFILE_ERROR]", error);
     return { success: true, data: DEFAULT_PROFILE };
   }
+}
+
+function getInitials(name: string): string {
+  return name.split(" ").filter(Boolean).map((p) => p[0]).join("").toUpperCase().slice(0, 2) || "AM";
 }
 
 export async function updateProfile(

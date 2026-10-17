@@ -1,16 +1,9 @@
 "use client";
 
-import { Bell, Sliders, Check, Loader2 } from "lucide-react";
-import { useProfileStore } from "@/lib/stores/useProfileStore";
-import { updateProfile } from "@/actions/profile";
+import * as React from "react";
+import { Bell, Sliders } from "lucide-react";
 
 export function ProfileHeader(): React.JSX.Element {
-  const { hasChanges, isSaving, saveChanges, discardChanges } = useProfileStore();
-
-  const handleSave = async (): Promise<void> => {
-    await saveChanges(updateProfile);
-  };
-
   return (
     <header className="sticky top-0 z-40 hidden md:flex w-full items-center justify-between border-b border-[#1F2937]/80 bg-[#0B0F17]/90 px-8 py-3.5 backdrop-blur-md">
       {/* Brand / Breadcrumb Area */}
@@ -38,31 +31,6 @@ export function ProfileHeader(): React.JSX.Element {
           type="button"
         >
           <Sliders className="h-4 w-4" />
-        </button>
-
-        <div className="h-5 w-px bg-[#1F2937] mx-1" />
-
-        <button
-          onClick={discardChanges}
-          disabled={!hasChanges || isSaving}
-          className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-slate-400 transition-colors hover:bg-[#1E293B] hover:text-white disabled:opacity-40 disabled:hover:bg-transparent"
-          type="button"
-        >
-          Discard
-        </button>
-
-        <button
-          onClick={handleSave}
-          disabled={isSaving}
-          className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white shadow-[0_2px_14px_rgba(59,130,246,0.35)] transition-all hover:bg-blue-500 active:scale-[0.98] disabled:opacity-60"
-          type="button"
-        >
-          {isSaving ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Check className="h-4 w-4" />
-          )}
-          <span>Save changes</span>
         </button>
       </div>
     </header>

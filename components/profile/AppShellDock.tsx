@@ -5,9 +5,13 @@ import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 
 interface AppShellDockProps {
   userInitials?: string;
+  userName?: string | null;
 }
 
-export function AppShellDock({ userInitials = "AM" }: AppShellDockProps): React.JSX.Element {
-  return <DashboardSidebar initials={userInitials} />;
+export function AppShellDock({
+  userInitials = "AM",
+  userName,
+}: AppShellDockProps): React.JSX.Element {
+  return <DashboardSidebar initials={userInitials} name={userName} />;
 }
 

@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { AuthProvider } from "@/providers/AuthProvider";
 import { Navbar } from "@/components/shared/Navbar";
 import { NavbarSkeleton } from "@/components/shared/NavbarSkeleton";
 import { Footer } from "@/components/shared/Footer";
@@ -44,17 +45,19 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<NavbarSkeleton />}>
-            <ConditionalLayout>
-              <Navbar />
-            </ConditionalLayout>
-          </Suspense>
-          <main className="flex flex-1 flex-col">{children}</main>
-          <Suspense fallback={null}>
-            <ConditionalLayout>
-              <Footer />
-            </ConditionalLayout>
-          </Suspense>
+          <AuthProvider>
+            <Suspense fallback={<NavbarSkeleton />}>
+              <ConditionalLayout>
+                <Navbar />
+              </ConditionalLayout>
+            </Suspense>
+            <main className="flex flex-1 flex-col">{children}</main>
+            <Suspense fallback={null}>
+              <ConditionalLayout>
+                <Footer />
+              </ConditionalLayout>
+            </Suspense>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,26 +1,31 @@
-import * as React from "react";
-import { InterviewClientSession } from "./InterviewClientSession";
-import { INITIAL_INTERVIEW_SESSION } from "./mockData";
+"use client";
+
+import { useInterviewSessionTimer } from "@/hooks/useInterviewSessionTimer";
+import { useMockInterviewRunner } from "@/hooks/useMockInterviewRunner";
+import { InterviewHeader } from "./InterviewHeader";
+import { InterviewWorkspace } from "./InterviewWorkspace";
 
 interface InterviewSessionPageContentProps {
   sessionId: string;
 }
 
 /**
- * Server component preparing initial interview problem, topic, and context.
+ * Layout orchestrator connecting the session timer and mock interview runner
+ * to the InterviewHeader and responsive InterviewWorkspace.
  */
 export function InterviewSessionPageContent({
-  sessionId,
+  sessionId: _sessionId,
 }: InterviewSessionPageContentProps): React.JSX.Element {
-  // Can load or match session topic and problem metadata from server/database
-  const sessionTopic = INITIAL_INTERVIEW_SESSION.topic;
+  const timer = useInterviewSessionTimer(18 * 60 + 42);
+  const runner = useMockInterviewRunner("python");
 
   return (
-    <main
-      data-session-id={sessionId}
-      className="flex h-screen w-full flex-col overflow-hidden bg-[#0B0F17]"
-    >
-      <InterviewClientSession topic={sessionTopic} />
-    </main>
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-[#0B0F17]">
+      <InterviewHeader
+        topic="Data Structures"
+        formattedTime={timer.timeString}
+      />
+      <InterviewWorkspace runner={runner} />
+    </div>
   );
 }

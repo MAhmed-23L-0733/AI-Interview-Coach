@@ -15,11 +15,13 @@ import { SettingsBottomBar } from "./SettingsBottomBar";
 interface SettingsPageContentProps {
   initialSettings?: UserSettingsInput;
   initials?: string;
+  userName?: string | null;
 }
 
 export function SettingsPageContent({
   initialSettings,
   initials = "AM",
+  userName,
 }: SettingsPageContentProps): React.JSX.Element {
   const { isExpanded } = useSidebarStore();
   const {
@@ -39,7 +41,7 @@ export function SettingsPageContent({
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex">
       {/* Desktop Sidebar & Mobile Nav */}
-      <DashboardSidebar initials={initials} />
+      <DashboardSidebar initials={initials} name={userName} />
 
       {/* Main Content Area */}
       <main
@@ -50,11 +52,7 @@ export function SettingsPageContent({
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
           {/* Header */}
-          <SettingsHeader
-            isSaving={isSaving}
-            onDiscard={onDiscard}
-            onSave={onSubmit}
-          />
+          <SettingsHeader />
 
           {/* Settings Multi-Section Form */}
           <form onSubmit={onSubmit} className="space-y-8">

@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useState } from "react";
 import { AudioLines, Clock, PhoneOff } from "lucide-react";
-import { EndInterviewModal } from "./EndInterviewModal";
+import { EndInterviewModal } from "./session/EndInterviewModal";
 
 interface InterviewHeaderProps {
   topic: string;
@@ -33,16 +33,16 @@ export function InterviewHeader({
             <span className="text-sm font-semibold tracking-tight text-white sm:text-base">
               Technical Interview
             </span>
-            <div className="flex items-center gap-1.5 rounded-full border border-[#1F2937] bg-[#111827] px-2.5 py-0.5 text-xs text-slate-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
-              <span className="font-medium text-slate-200">Live</span>
+            <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs text-emerald-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-medium">Live</span>
             </div>
           </div>
         </div>
 
         {/* Right: Timer, Topic Badge, End Interview Button */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden items-center gap-1.5 rounded-lg border border-[#1F2937] bg-[#111827] px-3 py-1.5 sm:flex">
+          <div className="flex items-center gap-1.5 rounded-lg border border-[#1F2937] bg-[#111827] px-3 py-1.5">
             <Clock className="h-3.5 w-3.5 text-slate-400" />
             <span className="font-mono text-xs font-medium text-slate-200">
               {formattedTime}
@@ -56,7 +56,7 @@ export function InterviewHeader({
           <button
             type="button"
             onClick={() => setIsEndModalOpen(true)}
-            className="flex items-center gap-2 rounded-xl border border-rose-500/40 bg-rose-500/10 px-3 py-1.5 text-xs font-semibold text-rose-400 transition-colors hover:bg-rose-500/20 sm:text-sm"
+            className="flex items-center gap-2 rounded-xl border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-400 transition-colors hover:bg-red-500/20 sm:text-sm"
           >
             <PhoneOff className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             <span>End interview</span>

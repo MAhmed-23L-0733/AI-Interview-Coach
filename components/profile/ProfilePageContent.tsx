@@ -28,7 +28,10 @@ export function ProfilePageContent({ initialData }: ProfilePageContentProps): Re
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex flex-col font-sans selection:bg-blue-500/30 selection:text-blue-200">
       {/* Persistent Left Sidebar Navigation Rail / Mobile Nav */}
-      <AppShellDock userInitials={profile.avatarInitials || "AM"} />
+      <AppShellDock
+        userInitials={profile.avatarInitials || "AM"}
+        userName={profile.name}
+      />
 
       {/* Main Workspace Canvas with dynamic sidebar padding */}
       <DashboardLayoutWrapper className="flex flex-1 flex-col">

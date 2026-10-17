@@ -1,19 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Lock, Save, Loader2 } from "lucide-react";
+import { Lock } from "lucide-react";
 
-interface SettingsHeaderProps {
-  isSaving: boolean;
-  onDiscard: () => void;
-  onSave: () => void;
-}
-
-export function SettingsHeader({
-  isSaving,
-  onDiscard,
-  onSave,
-}: SettingsHeaderProps): React.JSX.Element {
+export function SettingsHeader(): React.JSX.Element {
   return (
     <section className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#1F2937] pb-6">
       <div>
@@ -29,30 +19,9 @@ export function SettingsHeader({
         </p>
       </div>
 
-      <div className="flex items-center gap-3 self-start md:self-auto">
-        <div className="flex items-center gap-2 bg-[#111827] px-3.5 py-2 rounded-xl border border-[#1F2937] text-xs text-slate-400">
-          <Lock className="text-[#3B82F6] w-3.5 h-3.5" />
-          <span>Config stored locally & encrypted</span>
-        </div>
-        <div className="hidden sm:flex items-center gap-2">
-          <button
-            type="button"
-            onClick={onDiscard}
-            disabled={isSaving}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#1E293B] transition-colors"
-          >
-            Discard
-          </button>
-          <button
-            type="button"
-            onClick={onSave}
-            disabled={isSaving}
-            className="px-3.5 py-1.5 rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white text-xs font-semibold flex items-center gap-1.5 shadow-[0_0_12px_rgba(59,130,246,0.35)] transition-all"
-          >
-            {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
-            Save
-          </button>
-        </div>
+      <div className="flex items-center gap-2 bg-[#111827] px-3.5 py-2 rounded-xl border border-[#1F2937] text-xs text-slate-400 self-start md:self-auto">
+        <Lock className="text-[#3B82F6] w-3.5 h-3.5" />
+        <span>Config stored locally & encrypted</span>
       </div>
     </section>
   );

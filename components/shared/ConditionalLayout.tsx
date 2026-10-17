@@ -22,6 +22,7 @@ export function ConditionalLayout({
       pathname.startsWith("/history") ||
       pathname.startsWith("/settings") ||
       pathname.startsWith("/interview") ||
+      pathname.startsWith("/report") ||
       pathname.startsWith("/login") ||
       pathname.startsWith("/signup"))
   ) {

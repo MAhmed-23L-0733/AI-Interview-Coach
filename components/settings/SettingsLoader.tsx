@@ -9,9 +9,11 @@ export async function SettingsLoader(): Promise<React.JSX.Element> {
     getUserSettings(),
   ]);
 
-  const initials = session?.user?.name
-    ? session.user.name
+  const userName = session?.user?.name || null;
+  const initials = userName
+    ? userName
         .split(" ")
+        .filter(Boolean)
         .map((n) => n[0])
         .join("")
         .toUpperCase()
@@ -22,6 +24,7 @@ export async function SettingsLoader(): Promise<React.JSX.Element> {
     <SettingsPageContent
       initialSettings={settingsRes.data}
       initials={initials}
+      userName={userName}
     />
   );
 }

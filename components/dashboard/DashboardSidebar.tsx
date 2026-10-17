@@ -6,24 +6,33 @@ import { Home, Clock, Settings, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { useSidebarStore } from "@/lib/stores/useSidebarStore";
+import { useSidebarUser } from "@/hooks/useSidebarUser";
 import { SidebarHeader } from "./sidebar/SidebarHeader";
 import { SidebarNavItem } from "./sidebar/SidebarNavItem";
 import { SidebarUserFooter } from "./sidebar/SidebarUserFooter";
+import { LogoutConfirmModal } from "./sidebar/LogoutConfirmModal";
 import { DashboardMobileNav } from "./DashboardMobileNav";
 
 interface DashboardSidebarProps {
   initials?: string;
+  name?: string | null;
 }
-
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: Home, match: (p: string) => p === "/dashboard" },
-  { href: "/history", label: "History", icon: Clock, match: (p: string) => p.startsWith("/history") },
+  { href: "/history", label: "History", icon: Clock, match: (p: string) => p.startsWith("/history") || p.startsWith("/report") },
   { href: "/settings", label: "Settings", icon: Settings, match: (p: string) => p.startsWith("/settings") },
 ] as const;
 
-export function DashboardSidebar({ initials = "AM" }: DashboardSidebarProps): React.JSX.Element {
+export function DashboardSidebar({ initials = "AM", name }: DashboardSidebarProps): React.JSX.Element {
   const pathname = usePathname();
   const { isExpanded, toggleSidebar } = useSidebarStore();
+  const { name: resolvedName, initials: resolvedInitials } = useSidebarUser({ propInitials: initials, propName: name });
+  const [showLogoutModal, setShowLogoutModal] = React.useState(false);
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
+  const handleConfirmLogout = async () => {
+    setIsLoggingOut(true);
+    await signOut({ callbackUrl: "/login" });
+  };
 
   return (
     <>
@@ -36,7 +45,6 @@ export function DashboardSidebar({ initials = "AM" }: DashboardSidebarProps): Re
       >
         <div className="flex w-full flex-col items-center gap-6">
           <SidebarHeader isExpanded={isExpanded} onToggle={toggleSidebar} />
-
           <nav className="flex w-full flex-col gap-1.5">
             {NAV_ITEMS.map((item) => (
               <SidebarNavItem
@@ -48,30 +56,43 @@ export function DashboardSidebar({ initials = "AM" }: DashboardSidebarProps): Re
                 isExpanded={isExpanded}
               />
             ))}
-            <button
-              type="button"
-              onClick={() => signOut({ callbackUrl: "/login" })}
-              aria-label="Log out"
-              title="Log out"
-              className={cn(
-                "flex items-center rounded-xl text-slate-400 transition-all duration-200 hover:bg-[#1E293B]/70 hover:text-red-400",
-                isExpanded ? "w-full gap-3 px-3.5 py-2.5 text-sm font-medium" : "h-10 w-10 justify-center"
-              )}
-            >
-              <LogOut className="h-5 w-5 shrink-0" />
-              {isExpanded && <span className="truncate">Log out</span>}
-            </button>
           </nav>
         </div>
 
-        <SidebarUserFooter
-          initials={initials}
-          isExpanded={isExpanded}
-          isActive={pathname.startsWith("/profile")}
-        />
+        <div className="flex w-full flex-col items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => setShowLogoutModal(true)}
+            aria-label="Log out"
+            title="Log out"
+            className={cn(
+              "flex items-center rounded-xl text-slate-400 transition-all duration-200 hover:bg-[#1E293B]/70 hover:text-red-400",
+              isExpanded ? "w-full gap-3 px-3.5 py-2.5 text-sm font-medium" : "h-10 w-10 justify-center"
+            )}
+          >
+            <LogOut className="h-5 w-5 shrink-0" />
+            {isExpanded && <span className="truncate">Log out</span>}
+          </button>
+          <SidebarUserFooter
+            initials={resolvedInitials}
+            name={resolvedName}
+            isExpanded={isExpanded}
+            isActive={pathname.startsWith("/profile")}
+          />
+        </div>
       </aside>
 
-      <DashboardMobileNav initials={initials} />
+      <DashboardMobileNav
+        initials={resolvedInitials}
+        onLogoutClick={() => setShowLogoutModal(true)}
+      />
+
+      <LogoutConfirmModal
+        isOpen={showLogoutModal}
+        onClose={() => !isLoggingOut && setShowLogoutModal(false)}
+        onConfirm={handleConfirmLogout}
+        isLoggingOut={isLoggingOut}
+      />
     </>
   );
 }

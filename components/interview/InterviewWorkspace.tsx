@@ -1,92 +1,98 @@
 "use client";
 
-import * as React from "react";
 import { useState } from "react";
-import { MessageSquare, Code } from "lucide-react";
-import { VoiceAudioHub } from "./VoiceAudioHub";
-import { LiveTranscript } from "./LiveTranscript";
-import { VoiceResponseDock } from "./VoiceResponseDock";
-import { CodeEditorPanel } from "./CodeEditorPanel";
-import { useInterviewSession } from "./useInterviewSession";
+import { Mic, Code2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { UseMockInterviewRunnerReturn } from "@/hooks/useMockInterviewRunner";
+import { VoiceAudioHub } from "./session/VoiceAudioHub";
+import { LiveTranscript } from "./session/LiveTranscript";
+import { VoiceResponseDock } from "./session/VoiceResponseDock";
+import { CodeEditorHeader } from "./session/CodeEditorHeader";
+import { CodeEditorSurface } from "./session/CodeEditorSurface";
+import { ConsoleOutputPanel } from "./session/ConsoleOutputPanel";
 
 interface InterviewWorkspaceProps {
-  sessionState: ReturnType<typeof useInterviewSession>;
+  runner: UseMockInterviewRunnerReturn;
 }
 
 export function InterviewWorkspace({
-  sessionState,
+  runner,
 }: InterviewWorkspaceProps): React.JSX.Element {
-  const [activeMobileTab, setActiveMobileTab] = useState<"voice" | "code">("voice");
+  const [mobileTab, setMobileTab] = useState<"voice" | "code">("voice");
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden bg-[#0B0F17]">
-      {/* Mobile / Tablet Tab Switcher (< 1024px) */}
-      <div className="flex border-b border-[#1F2937] bg-[#111827] px-4 py-2 lg:hidden">
-        <button
-          type="button"
-          onClick={() => setActiveMobileTab("voice")}
-          className={cn(
-            "flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-xs font-semibold transition-colors",
-            activeMobileTab === "voice"
-              ? "bg-[#1E293B] text-blue-400 border border-[#1F2937]"
-              : "text-slate-400 hover:text-white"
-          )}
-        >
-          <MessageSquare className="h-4 w-4" />
-          <span>Voice & Transcript</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveMobileTab("code")}
-          className={cn(
-            "flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-xs font-semibold transition-colors",
-            activeMobileTab === "code"
-              ? "bg-[#1E293B] text-blue-400 border border-[#1F2937]"
-              : "text-slate-400 hover:text-white"
-          )}
-        >
-          <Code className="h-4 w-4" />
-          <span>Code Editor</span>
-        </button>
+      {/* Mobile/Tablet Segmented Switcher */}
+      <div className="flex border-b border-[#1F2937] bg-[#111827] p-2 lg:hidden">
+        <div className="grid w-full grid-cols-2 gap-2 rounded-lg bg-[#0B0F17] p-1">
+          <button
+            type="button"
+            onClick={() => setMobileTab("voice")}
+            className={cn(
+              "flex items-center justify-center gap-2 rounded-md py-2 text-xs font-semibold transition-all",
+              mobileTab === "voice"
+                ? "bg-[#3B82F6] text-white shadow"
+                : "text-slate-400 hover:text-white"
+            )}
+          >
+            <Mic className="h-3.5 w-3.5" />
+            <span>Voice & Transcript</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobileTab("code")}
+            className={cn(
+              "flex items-center justify-center gap-2 rounded-md py-2 text-xs font-semibold transition-all",
+              mobileTab === "code"
+                ? "bg-[#3B82F6] text-white shadow"
+                : "text-slate-400 hover:text-white"
+            )}
+          >
+            <Code2 className="h-3.5 w-3.5" />
+            <span>Code Editor</span>
+          </button>
+        </div>
       </div>
 
-      {/* Dual-Pane Layout on Desktop; Tab-swapped on Mobile */}
-      <div className="flex flex-1 overflow-hidden p-3 sm:p-4 lg:p-6 lg:gap-6">
-        {/* Left Pane: Voice & Conversation Stream (48% on desktop) */}
-        <section
+      {/* Main Dual-Pane Container */}
+      <div className="flex flex-1 overflow-hidden p-3 gap-3 lg:p-4 lg:gap-4">
+        {/* Left Pane: Voice & Transcript */}
+        <div
           className={cn(
-            "flex h-full flex-col gap-3 lg:flex lg:w-[48%] xl:w-[46%]",
-            activeMobileTab === "voice" ? "flex flex-1" : "hidden"
+            "flex flex-1 flex-col gap-3 overflow-hidden lg:flex lg:w-[48%] lg:max-w-[48%]",
+            mobileTab === "voice" ? "flex" : "hidden"
           )}
         >
-          <VoiceAudioHub isSpeaking={sessionState.isSpeaking} />
-          <LiveTranscript
-            messages={sessionState.messages}
-            isTranscribing={sessionState.isTranscribing}
+          <VoiceAudioHub
+            isAISpeaking={runner.isAISpeaking}
+            isListening={runner.isListening}
           />
+          <LiveTranscript messages={runner.messages} />
           <VoiceResponseDock
-            isListening={sessionState.isListening}
-            onToggleListening={sessionState.toggleListening}
+            isListening={runner.isListening}
+            onToggleMic={runner.handleToggleMic}
           />
-        </section>
+        </div>
 
-        {/* Right Pane: Code Editor & Execution Surface (52% on desktop) */}
-        <section
+        {/* Right Pane: Code Editor & Console */}
+        <div
           className={cn(
-            "h-full lg:flex lg:flex-1",
-            activeMobileTab === "code" ? "flex flex-1" : "hidden"
+            "flex flex-1 flex-col overflow-hidden rounded-xl border border-[#1F2937] bg-[#111827] shadow-lg lg:flex lg:w-[52%] lg:max-w-[52%]",
+            mobileTab === "code" ? "flex" : "hidden"
           )}
         >
-          <CodeEditorPanel
-            language={sessionState.language}
-            setLanguage={sessionState.setLanguage}
-            code={sessionState.code}
-            setCode={sessionState.setCode}
-            executionResult={sessionState.executionResult}
-            onRunCode={sessionState.runCode}
+          <CodeEditorHeader
+            language={runner.activeLanguage}
+            isRunning={runner.executionResult.status === "running"}
+            onLanguageChange={runner.handleLanguageChange}
+            onRunCode={runner.handleRunCode}
           />
-        </section>
+          <CodeEditorSurface
+            code={runner.code}
+            onChange={runner.handleCodeChange}
+          />
+          <ConsoleOutputPanel result={runner.executionResult} />
+        </div>
       </div>
     </div>
   );

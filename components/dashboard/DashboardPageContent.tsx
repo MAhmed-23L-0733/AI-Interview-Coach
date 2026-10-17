@@ -34,7 +34,7 @@ export function DashboardPageContent({
   return (
     <div className="relative min-h-screen w-full bg-[#0B0F17] text-white">
       {/* Persistent Left Sidebar Navigation Rail / Mobile Nav */}
-      <DashboardSidebar initials={userInitials} />
+      <DashboardSidebar initials={userInitials} name={userName} />
 
       {/* Main Content Area responsive to expanded/retracted sidebar */}
       <DashboardLayoutWrapper>

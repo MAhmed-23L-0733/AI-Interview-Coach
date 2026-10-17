@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useInterviewSessionTimer } from "@/hooks/useInterviewSessionTimer";
+import { useMockInterviewRunner } from "@/hooks/useMockInterviewRunner";
 import { InterviewHeader } from "./InterviewHeader";
 import { InterviewWorkspace } from "./InterviewWorkspace";
-import { useInterviewSession } from "./useInterviewSession";
 
 interface InterviewClientSessionProps {
   topic?: string;
@@ -12,15 +13,16 @@ interface InterviewClientSessionProps {
 export function InterviewClientSession({
   topic = "Data Structures",
 }: InterviewClientSessionProps): React.JSX.Element {
-  const sessionState = useInterviewSession();
+  const timer = useInterviewSessionTimer(18 * 60 + 42);
+  const runner = useMockInterviewRunner("python");
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-[#0B0F17] text-white">
       <InterviewHeader
         topic={topic}
-        formattedTime={sessionState.formattedTime}
+        formattedTime={timer.timeString}
       />
-      <InterviewWorkspace sessionState={sessionState} />
+      <InterviewWorkspace runner={runner} />
     </div>
   );
 }
