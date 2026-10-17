@@ -74,6 +74,15 @@ export function useMockInterviewRunner(
     setCode(val);
   }, []);
 
+  const resetSession = useCallback(() => {
+    setMessages(INITIAL_INTERVIEW_SESSION.messages);
+    setIsListening(false);
+    setIsAISpeaking(true);
+    setActiveLanguage(initialLanguage);
+    setCode(LANGUAGE_TEMPLATES[initialLanguage]);
+    setExecutionResult({ status: "idle", output: "" });
+  }, [initialLanguage]);
+
   return {
     messages,
     isListening,
@@ -85,5 +94,6 @@ export function useMockInterviewRunner(
     handleRunCode,
     handleLanguageChange,
     handleCodeChange,
+    resetSession,
   };
 }

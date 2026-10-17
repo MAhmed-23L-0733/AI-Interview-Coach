@@ -18,6 +18,7 @@ export function EndInterviewModal({
   if (!isOpen) return null;
 
   const handleConfirmEnd = (): void => {
+    onClose();
     router.push("/dashboard");
   };
 

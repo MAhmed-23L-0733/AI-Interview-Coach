@@ -36,8 +36,8 @@ export async function HistoryPageContent({
     <div className="min-h-screen bg-[#0B0F17] text-slate-100">
       <AppShellDock initials={initials} name={userName} />
 
-      <DashboardLayoutWrapper className="flex flex-col pt-8 sm:px-6 lg:px-8">
-        <div className="mx-auto w-full max-w-6xl space-y-8 px-4 sm:px-0">
+      <DashboardLayoutWrapper className="flex flex-col pt-8">
+        <div className="mx-auto w-full max-w-6xl space-y-8 px-4 sm:px-6 lg:px-8">
           <HistoryHeader />
           <HistoryMetricsGrid metrics={data.metrics} />
 

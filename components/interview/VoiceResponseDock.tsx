@@ -47,7 +47,7 @@ export function VoiceResponseDock({
           {isListening ? "Listening... click to send" : "Tap to answer"}
         </span>
         <p className="text-[11px] text-slate-400 sm:text-xs">
-          Speak naturally — your answer will appear above
+          Speak naturally - your answer will appear above
         </p>
       </div>
     </div>

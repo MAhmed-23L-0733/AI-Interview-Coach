@@ -15,7 +15,8 @@ export function EndInterviewModal({
 }: EndInterviewModalProps): React.JSX.Element {
   const router = useRouter();
 
-  const handleConfirmEnd = () => {
+  const handleConfirmEnd = (): void => {
+    onClose();
     router.push("/history");
   };
 

@@ -18,9 +18,9 @@ export function DashboardLayoutWrapper({
   return (
     <main
       className={cn(
-        "min-h-screen pb-24 md:pb-12 transition-[padding] duration-300 ease-in-out",
-        isExpanded ? "md:pl-64" : "md:pl-[72px]",
-        className
+        "min-h-screen w-full pb-24 md:pb-12 transition-[padding] duration-300 ease-in-out",
+        className,
+        isExpanded ? "md:pl-64" : "md:pl-[72px]"
       )}
     >
       {children}

@@ -1,10 +1,11 @@
 import * as React from "react";
+import { DashboardLayoutWrapper } from "@/components/dashboard/DashboardLayoutWrapper";
 
 export function ReportSkeleton(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-[#0B0F17] text-white">
-      <main className="transition-all duration-300 ease-in-out md:pl-[72px]">
-        <div className="mx-auto max-w-5xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
+      <DashboardLayoutWrapper className="flex flex-col pt-8">
+        <div className="mx-auto w-full max-w-5xl space-y-6 px-4 sm:px-6 lg:px-8">
           {/* Header Skeleton */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between animate-pulse">
             <div className="space-y-2">
@@ -35,7 +36,7 @@ export function ReportSkeleton(): React.JSX.Element {
           {/* Question Skeleton */}
           <div className="h-64 rounded-2xl border border-[#1F2937] bg-[#111827] p-6 animate-pulse" />
         </div>
-      </main>
+      </DashboardLayoutWrapper>
     </div>
   );
 }

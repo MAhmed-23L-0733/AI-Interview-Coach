@@ -9,7 +9,7 @@ interface InterviewSessionPageProps {
 async function SessionLoader({ params }: InterviewSessionPageProps): Promise<React.JSX.Element> {
   const { id } = await params;
   if (!id) notFound();
-  return <InterviewSessionPageContent sessionId={id} />;
+  return <InterviewSessionPageContent key={id} sessionId={id} />;
 }
 
 export default function InterviewSessionPage(props: InterviewSessionPageProps): React.JSX.Element {

@@ -17,6 +17,10 @@ export function InterviewHeader({
 }: InterviewHeaderProps): React.JSX.Element {
   const [isEndModalOpen, setIsEndModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    setIsEndModalOpen(false);
+  }, [topic]);
+
   return (
     <>
       <header className="flex h-16 w-full items-center justify-between border-b border-[#1F2937] bg-[#0B0F17] px-4 lg:px-6">
