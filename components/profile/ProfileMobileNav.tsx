@@ -18,6 +18,10 @@ export function ProfileMobileNav({
 }: ProfileMobileNavProps): React.JSX.Element {
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const handleClose = React.useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
     <>
       {/* Mobile Top Header */}
@@ -53,7 +57,7 @@ export function ProfileMobileNav({
       {/* Slide-Out Navigation Drawer */}
       <MobileNavDrawer
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={handleClose}
         initials={userInitials}
         name={userName}
         onLogoutClick={onLogoutClick}

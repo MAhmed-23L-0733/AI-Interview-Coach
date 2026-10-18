@@ -25,9 +25,12 @@ export function MobileNavDrawer({
 }: MobileNavDrawerProps): React.JSX.Element {
   const pathname = usePathname();
 
-  // Close drawer automatically on route navigation
+  const prevPathnameRef = React.useRef(pathname);
   React.useEffect(() => {
-    onClose();
+    if (prevPathnameRef.current !== pathname) {
+      prevPathnameRef.current = pathname;
+      onClose();
+    }
   }, [pathname, onClose]);
 
   // Close on Escape key press
@@ -69,7 +72,7 @@ export function MobileNavDrawer({
             transition={{ duration: 0.2 }}
             onClick={onClose}
             aria-hidden="true"
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
           />
 
           {/* Slide-Out Drawer */}

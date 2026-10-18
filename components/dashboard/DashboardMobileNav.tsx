@@ -21,6 +21,10 @@ export function DashboardMobileNav({
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const handleClose = React.useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
     <>
       {/* Mobile Top Header Bar */}
@@ -58,7 +62,7 @@ export function DashboardMobileNav({
       {/* Slide-Out Navigation Drawer */}
       <MobileNavDrawer
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={handleClose}
         initials={initials}
         name={name}
         onLogoutClick={onLogoutClick}

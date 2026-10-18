@@ -18,6 +18,10 @@ export function AppShellMobileNav({
 }: AppShellMobileNavProps): React.JSX.Element {
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const handleClose = React.useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
     <>
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-[#1F2937] bg-[#0B0F17]/95 px-4 py-3 backdrop-blur-md md:hidden">
@@ -51,7 +55,7 @@ export function AppShellMobileNav({
       {/* Slide-Out Navigation Drawer */}
       <MobileNavDrawer
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={handleClose}
         initials={initials}
         name={name}
         onLogoutClick={onLogoutClick}
