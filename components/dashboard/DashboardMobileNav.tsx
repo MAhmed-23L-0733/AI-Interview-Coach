@@ -28,7 +28,7 @@ export function DashboardMobileNav({
   return (
     <>
       {/* Mobile Top Header Bar */}
-      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-[#1F2937] bg-[#0B0F17]/95 px-4 py-3 backdrop-blur-md md:hidden">
+      <header className="sticky top-0 z-30 flex w-full items-center justify-between border-b border-[#1F2937] bg-[#0B0F17]/95 px-4 py-3 backdrop-blur-md md:hidden">
         <Link href="/dashboard" className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#3B82F6] text-white shadow-[0_0_12px_rgba(59,130,246,0.4)]">
             <Activity className="h-5 w-5 stroke-[2.5]" />

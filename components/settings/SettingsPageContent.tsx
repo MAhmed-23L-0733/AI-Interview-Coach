@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+import { AppShellDock } from "@/components/shared/AppShellDock";
 import { DashboardLayoutWrapper } from "@/components/dashboard/DashboardLayoutWrapper";
 import { useSettingsForm } from "@/hooks/useSettingsForm";
 import type { UserSettingsInput } from "@/lib/validations/settings";
@@ -37,13 +37,13 @@ export function SettingsPageContent({
   const isDirty = Object.keys(form.formState.dirtyFields).length > 0;
 
   return (
-    <div className="relative min-h-screen w-full bg-[#0B0F17] text-slate-100">
+    <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex flex-col font-sans selection:bg-blue-500/30 selection:text-blue-200">
       {/* Desktop Sidebar & Mobile Nav */}
-      <DashboardSidebar initials={initials} name={userName} />
+      <AppShellDock initials={initials} name={userName} />
 
       {/* Main Content Area */}
-      <DashboardLayoutWrapper>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-28 sm:pb-32">
+      <DashboardLayoutWrapper className="flex flex-1 flex-col">
+        <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-28 sm:pb-32 min-w-0">
           {/* Header */}
           <SettingsHeader />
 
@@ -62,7 +62,7 @@ export function SettingsPageContent({
               onExportHistory={handleExportHistory}
             />
           </form>
-        </div>
+        </main>
 
         {/* Sticky Action Bottom Dock */}
         <SettingsBottomBar
