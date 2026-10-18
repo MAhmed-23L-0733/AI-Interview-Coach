@@ -38,17 +38,17 @@ export function FeedbackStrictnessControl({
   onChange,
 }: FeedbackStrictnessControlProps): React.JSX.Element {
   return (
-    <div className="pt-4 border-t border-[#1F2937]">
-      <div className="flex items-center justify-between mb-2">
+    <div className="pt-4 border-t border-[#1F2937] w-full min-w-0 max-w-full">
+      <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
         <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
           AI Feedback Strictness & Rubric
         </label>
-        <span className="text-xs text-[#3B82F6] font-medium flex items-center gap-1">
-          <ShieldAlert className="w-3.5 h-3.5" />
+        <span className="text-xs text-[#3B82F6] font-medium flex items-center gap-1 shrink-0">
+          <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
           Target: L5 / Senior Level
         </span>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-[#111827] p-1.5 rounded-xl border border-[#1F2937]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 bg-[#111827] p-1.5 rounded-xl border border-[#1F2937] w-full min-w-0 max-w-full">
         {OPTIONS.map((opt) => {
           const isSelected = value === opt.id;
           return (
@@ -56,19 +56,19 @@ export function FeedbackStrictnessControl({
               key={opt.id}
               type="button"
               onClick={() => onChange(opt.id)}
-              className={`p-3 text-left rounded-lg transition-all ${
+              className={`p-3 text-left rounded-lg transition-all w-full min-w-0 ${
                 isSelected
                   ? "bg-[#1E293B] border border-[#3B82F6] text-white shadow-[0_0_12px_rgba(59,130,246,0.25)] relative"
                   : "text-slate-400 hover:text-slate-200 hover:bg-[#1E293B]/50"
               }`}
             >
-              <div className="flex items-center justify-between">
-                <span className={`text-sm font-semibold ${isSelected ? "text-[#3B82F6]" : "text-slate-200"}`}>
+              <div className="flex items-center justify-between gap-2">
+                <span className={`text-sm font-semibold truncate ${isSelected ? "text-[#3B82F6]" : "text-slate-200"}`}>
                   {opt.title}
                 </span>
-                {isSelected && <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />}
+                {isSelected && <span className="w-2 h-2 rounded-full bg-[#3B82F6] shrink-0" />}
               </div>
-              <p className="text-[11px] text-slate-400 mt-1 leading-normal">{opt.description}</p>
+              <p className="text-[11px] text-slate-400 mt-1 leading-normal break-words">{opt.description}</p>
             </button>
           );
         })}

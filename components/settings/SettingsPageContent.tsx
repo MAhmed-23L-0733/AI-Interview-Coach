@@ -39,18 +39,18 @@ export function SettingsPageContent({
   const isDirty = Object.keys(form.formState.dirtyFields).length > 0;
 
   return (
-    <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex">
+    <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex w-full max-w-full overflow-x-hidden">
       {/* Desktop Sidebar & Mobile Nav */}
       <DashboardSidebar initials={initials} name={userName} />
 
       {/* Main Content Area */}
       <main
         className={cn(
-          "flex-1 w-full transition-[padding] duration-300 ease-in-out",
+          "flex-1 w-full max-w-full min-w-0 transition-[padding] duration-300 ease-in-out",
           isExpanded ? "md:pl-64" : "md:pl-[72px]"
         )}
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-28 sm:pb-32">
           {/* Header */}
           <SettingsHeader />
 

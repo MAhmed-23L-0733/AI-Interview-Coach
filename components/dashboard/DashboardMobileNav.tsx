@@ -3,20 +3,23 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, Home, Clock, Settings, LogOut } from "lucide-react";
-import { signOut } from "next-auth/react";
+import { Activity, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MobileNavDrawer } from "@/components/shared/mobile-drawer/MobileNavDrawer";
 
 interface DashboardMobileNavProps {
   initials?: string;
+  name?: string | null;
   onLogoutClick?: () => void;
 }
 
 export function DashboardMobileNav({
   initials = "AM",
+  name,
   onLogoutClick,
 }: DashboardMobileNavProps): React.JSX.Element {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <>
@@ -30,62 +33,36 @@ export function DashboardMobileNav({
             AI Interview Coach
           </span>
         </Link>
-        <Link
-          href="/profile"
-          aria-label="User Profile"
-          className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-full border border-[#334155] bg-[#1E293B] text-xs font-bold text-slate-200 transition-colors",
-            pathname.startsWith("/profile") && "ring-2 ring-blue-500 ring-offset-2 ring-offset-[#0B0F17]"
-          )}
-        >
-          {initials}
-        </Link>
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/profile"
+            aria-label="User Profile"
+            className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-full border border-[#334155] bg-[#1E293B] text-xs font-bold text-slate-200 transition-colors",
+              pathname.startsWith("/profile") && "ring-2 ring-blue-500 ring-offset-2 ring-offset-[#0B0F17]"
+            )}
+          >
+            {initials}
+          </Link>
+          <button
+            type="button"
+            aria-label="Open Navigation Menu"
+            onClick={() => setIsOpen(true)}
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl border border-[#1F2937] bg-[#111827] text-slate-300 transition-colors hover:bg-[#1E293B] hover:text-white"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        </div>
       </header>
 
-      {/* Mobile Bottom Navigation Dock */}
-      <nav
-        aria-label="Mobile Navigation"
-        className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around border-t border-[#1F2937] bg-[#0B0F17]/95 px-4 py-2 backdrop-blur-md pb-[max(0.5rem,env(safe-area-inset-bottom))] md:hidden"
-      >
-        <Link
-          href="/dashboard"
-          className={cn(
-            "flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl transition-colors",
-            pathname === "/dashboard" ? "text-[#3B82F6]" : "text-slate-400 hover:text-white"
-          )}
-          aria-label="Home"
-        >
-          <Home className="h-5 w-5" />
-        </Link>
-        <Link
-          href="/history"
-          className={cn(
-            "flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl transition-colors",
-            pathname.startsWith("/history") ? "text-[#3B82F6]" : "text-slate-400 hover:text-white"
-          )}
-          aria-label="History"
-        >
-          <Clock className="h-5 w-5" />
-        </Link>
-        <Link
-          href="/settings"
-          className={cn(
-            "flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl transition-colors",
-            pathname.startsWith("/settings") ? "text-[#3B82F6]" : "text-slate-400 hover:text-white"
-          )}
-          aria-label="Settings"
-        >
-          <Settings className="h-5 w-5" />
-        </Link>
-        <button
-          type="button"
-          onClick={onLogoutClick ?? (() => signOut({ callbackUrl: "/login" }))}
-          className="flex min-h-[44px] min-w-[44px] items-center justify-center text-slate-400 hover:text-red-400"
-          aria-label="Log out"
-        >
-          <LogOut className="h-5 w-5" />
-        </button>
-      </nav>
+      {/* Slide-Out Navigation Drawer */}
+      <MobileNavDrawer
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        initials={initials}
+        name={name}
+        onLogoutClick={onLogoutClick}
+      />
     </>
   );
 }

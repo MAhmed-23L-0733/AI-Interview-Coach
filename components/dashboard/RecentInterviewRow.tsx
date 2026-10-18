@@ -29,7 +29,7 @@ export function RecentInterviewRow({
 
   return (
     <Link
-      href={`/interview/${session.id}`}
+      href={`/report/${session.id}`}
       className="group flex items-center justify-between p-4 transition-colors hover:bg-[#151d30] cursor-pointer"
     >
       {/* Left Column: Icon + Topic Metadata */}

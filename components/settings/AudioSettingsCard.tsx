@@ -25,41 +25,41 @@ export function AudioSettingsCard({
   const noiseCancellation = watch("noiseCancellation");
 
   return (
-    <section className="bg-[#111827] rounded-xl border border-[#1F2937] p-6 lg:p-7 shadow-sm">
-      <div className="flex items-start justify-between border-b border-[#1F2937] pb-4 mb-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-[#1E293B] border border-[#334155] flex items-center justify-center text-[#3B82F6]">
+    <section className="bg-[#111827] rounded-xl border border-[#1F2937] p-4 sm:p-6 lg:p-7 shadow-sm w-full min-w-0 max-w-full">
+      <div className="flex flex-wrap items-start justify-between gap-2 border-b border-[#1F2937] pb-4 mb-6">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
+          <div className="w-10 h-10 rounded-lg bg-[#1E293B] border border-[#334155] flex items-center justify-center text-[#3B82F6] shrink-0">
             <Mic className="w-5 h-5" />
           </div>
-          <div>
-            <h2 className="text-lg font-bold text-white">Audio & Speech Settings</h2>
+          <div className="min-w-0">
+            <h2 className="text-base sm:text-lg font-bold text-white">Audio & Speech Settings</h2>
             <p className="text-xs text-slate-400">Calibrate voice capture, AI synthesized responses, and dynamic microphone threshold.</p>
           </div>
         </div>
-        <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">SEC-01</span>
+        <span className="text-xs font-mono text-slate-500 uppercase tracking-wider shrink-0 self-start">SEC-01</span>
       </div>
 
       <div className="space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-          <div className="lg:col-span-7 space-y-2">
+          <div className="lg:col-span-7 space-y-2 w-full min-w-0">
             <label htmlFor="mic-select" className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Microphone Input Device
             </label>
-            <div className="relative">
+            <div className="relative w-full min-w-0">
               <select
                 id="mic-select"
                 {...register("microphone")}
-                className="w-full bg-[#1E293B] rounded-lg border border-[#334155] text-white text-sm px-4 py-2.5 pr-10 focus:outline-none focus:border-[#3B82F6] appearance-none cursor-pointer"
+                className="w-full bg-[#1E293B] rounded-lg border border-[#334155] text-white text-xs sm:text-sm px-3.5 sm:px-4 py-2.5 pr-10 focus:outline-none focus:border-[#3B82F6] appearance-none cursor-pointer truncate"
               >
                 <option value="MacBook Pro Microphone (Built-in) - 48kHz">MacBook Pro Microphone (Built-in) - 48kHz</option>
                 <option value="Shure MV7 USB Audio Interface (Default)">Shure MV7 USB Audio Interface (Default)</option>
                 <option value="AirPods Pro - Spatial Input Filter">AirPods Pro - Spatial Input Filter</option>
                 <option value="External Broadcast Interface (Channel 1)">External Broadcast Interface (Channel 1)</option>
               </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 shrink-0" />
             </div>
           </div>
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 w-full min-w-0">
             <AudioMeterVisualizer />
           </div>
         </div>

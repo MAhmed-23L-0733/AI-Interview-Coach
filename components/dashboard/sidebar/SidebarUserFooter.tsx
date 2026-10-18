@@ -19,42 +19,31 @@ export function SidebarUserFooter({
 }: SidebarUserFooterProps): React.JSX.Element {
   const displayName = name?.trim() || "Alex";
 
-  if (!isExpanded) {
-    return (
-      <Link
-        href="/profile"
-        aria-label={`User profile for ${displayName}`}
-        title={`View Profile (${displayName})`}
-        className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-full border border-[#334155] bg-[#1E293B] text-xs font-bold text-slate-200 shadow-sm transition-all hover:scale-105",
-          isActive && "ring-2 ring-blue-500 ring-offset-2 ring-offset-[#0B0F17]"
-        )}
-      >
-        {initials}
-      </Link>
-    );
-  }
-
   return (
     <Link
       href="/profile"
       aria-label={`User profile for ${displayName}`}
-      title="View Profile"
+      title={`View Profile (${displayName})`}
       className={cn(
-        "flex w-full items-center gap-3 rounded-xl p-2 transition-all duration-200",
+        "group flex h-11 w-full items-center rounded-xl transition-colors duration-200",
         isActive
           ? "bg-[#1E293B] ring-1 ring-blue-500/30"
           : "hover:bg-[#1E293B]/60"
       )}
     >
-      <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-xs font-bold text-white shadow-sm ring-1 ring-white/10">
+      <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-xs font-bold text-white shadow-sm ring-1 ring-white/10">
         {initials}
         <span
-          className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-[#0B0F17]"
+          className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-[#0B0F17]"
           aria-hidden="true"
         />
       </div>
-      <div className="flex min-w-0 flex-1 flex-col text-left">
+      <div
+        className={cn(
+          "flex flex-col text-left overflow-hidden whitespace-nowrap transition-all duration-300 ease-in-out",
+          isExpanded ? "max-w-[150px] opacity-100 ml-2.5" : "max-w-0 opacity-0 ml-0"
+        )}
+      >
         <span className="truncate text-sm font-medium text-slate-200">
           {displayName}
         </span>
