@@ -6,7 +6,10 @@ export type BuiltInVisual =
   | 'collaboration'
   | 'automation'
   | 'integration'
-  | 'security';
+  | 'security'
+  | 'voice'
+  | 'scorecard'
+  | 'systems';
 
 export interface MagicBentoItem {
   id?: string | number;

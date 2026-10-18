@@ -11,17 +11,17 @@ export function TopicsGridSection(): JSX.Element {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div className="max-w-xl">
               <div className="text-xs font-bold text-blue-400 tracking-wider uppercase mb-2">
-                Curated Question Engine
+                AI Technical Interview Coach
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                Targeted Practice Across Core Domains
+                Spoken Questions, Live Coding &amp; Detailed Scores
               </h2>
               <p className="text-sm text-slate-400 mt-2">
-                Sharpen your technical depth across the exact topics asked by top tech interviewers.
+                Practice realistic voice interviews, write code in an interactive workspace, and receive rubric-based scoring to help you get better every session.
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400">7 focus areas ready</span>
+              <span className="text-xs text-slate-400">Voice &amp; Coding Ready</span>
               <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#10B981]" />
             </div>
           </div>

@@ -10,7 +10,9 @@ import {
 } from '@hugeicons/core-free-icons';
 import {
   Brain,
+  CheckCircle2,
   Code2,
+  Cpu,
   FileText,
   Layers,
   Mic,
@@ -141,93 +143,166 @@ export const DashboardVisual = (): JSX.Element => (
   </div>
 );
 
-const ARROW = (
-  <svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true">
-    <path
-      d="M2.2 1.6 13.4 9.9c.5.4.3 1.2-.4 1.3l-4.6.6-2.2 4.2c-.3.6-1.2.5-1.4-.1L1.2 2.4c-.2-.6.5-1.1 1-.8Z"
-      strokeWidth="1.2"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-export const CollaborationVisual = (): JSX.Element => (
-  <div className="magic-bento__collab magic-bento__well">
-    <span className="magic-bento__doc-title">System Architecture: Distributed Cache</span>
-    <div className="magic-bento__lines">
-      <span className="magic-bento__line" style={vars({ '--w': '92%' })} />
-      <span className="magic-bento__line" style={vars({ '--w': '78%' })} />
-      <span className="magic-bento__line" style={vars({ '--w': '86%' })} />
-      <span className="magic-bento__line" style={vars({ '--w': '44%' })} />
-      <span className="magic-bento__line magic-bento__line--gap" style={vars({ '--w': '88%' })} />
-      <span className="magic-bento__line" style={vars({ '--w': '70%' })}>
-        <span className="magic-bento__selection" style={vars({ '--from': '18%', '--span': '58%' })}>
-          <span className="magic-bento__caret" />
+export const VoiceDialogueVisual = (): JSX.Element => (
+  <div className="flex flex-col justify-between w-full h-full p-4 rounded-xl bg-[#071322]/80 border border-blue-500/20 backdrop-blur-sm select-none gap-3">
+    {/* Live Audio Status Header */}
+    <div className="flex items-center justify-between gap-3 pb-2.5 border-b border-[#1F2937]/70">
+      <div className="flex items-center gap-2">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_8px_#10B981]" />
         </span>
-      </span>
-      <span className="magic-bento__line" style={vars({ '--w': '82%' })} />
+        <span className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+          <Mic className="w-3.5 h-3.5" />
+          Voice Session Active
+        </span>
+      </div>
+      {/* Animated Waveform */}
+      <div className="flex items-center gap-1 h-4">
+        {[35, 75, 45, 95, 60, 30, 85, 55, 90, 40, 70, 25].map((h, i) => (
+          <span
+            key={i}
+            className="w-0.5 sm:w-1 bg-gradient-to-t from-blue-500 via-sky-400 to-emerald-300 rounded-full animate-pulse"
+            style={{
+              height: `${h}%`,
+              animationDelay: `${(i % 5) * 160}ms`,
+              animationDuration: '1.1s'
+            }}
+          />
+        ))}
+      </div>
     </div>
-    <span
-      className="magic-bento__cursor magic-bento__cursor--primary"
-      style={vars({ '--x': '58%', '--y': '52%', '--i': 0, '--path': 'magic-bento-path-a' })}
-    >
-      {ARROW}
-      <span className="magic-bento__cursor-name">AI Coach</span>
-    </span>
-    <span
-      className="magic-bento__cursor magic-bento__cursor--secondary"
-      style={vars({ '--x': '30%', '--y': '24%', '--i': 1, '--path': 'magic-bento-path-b' })}
-    >
-      {ARROW}
-      <span className="magic-bento__cursor-name">Candidate</span>
-    </span>
+
+    {/* Conversational Voice Exchange */}
+    <div className="space-y-2 flex-1 flex flex-col justify-center">
+      {/* AI Interviewer prompt */}
+      <div className="flex items-start gap-2.5">
+        <span className="w-6 h-6 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-400 flex items-center justify-center shrink-0 mt-0.5">
+          <Brain className="w-3.5 h-3.5" />
+        </span>
+        <div className="flex-1 bg-[#0D1C30]/90 border border-blue-500/25 rounded-xl p-2.5 text-xs text-slate-200 leading-relaxed shadow-xs">
+          <div className="flex items-center justify-between mb-1">
+            <span className="font-bold text-blue-400 text-[10px] tracking-wider uppercase">
+              AI Interviewer (Speaking)
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">18:24</span>
+          </div>
+          &ldquo;Can you explain your approach and how you&apos;d handle potential duplicates?&rdquo;
+        </div>
+      </div>
+
+      {/* Candidate voice answer */}
+      <div className="flex items-start gap-2.5 pl-3">
+        <span className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+          <Mic className="w-3.5 h-3.5" />
+        </span>
+        <div className="flex-1 bg-[#082229]/80 border border-emerald-500/25 rounded-xl p-2.5 text-xs text-slate-200 leading-relaxed shadow-xs">
+          <div className="flex items-center justify-between mb-1">
+            <span className="font-bold text-emerald-400 text-[10px] tracking-wider uppercase">
+              Candidate (Transcribed Voice)
+            </span>
+            <span className="text-[10px] text-emerald-400/80 font-mono">Live</span>
+          </div>
+          &ldquo;I&apos;ll use a hash set for O(1) lookups so we only iterate through the array once...&rdquo;
+        </div>
+      </div>
+    </div>
   </div>
 );
 
-const TEST_STEPS = [
-  { label: 'Syntax & AST Check', time: '4ms' },
-  { label: 'Sample Unit Tests', time: '12ms' },
-  { label: 'Boundary Edge Cases', time: '28ms' },
-  { label: 'Big-O & Memory Limits', time: '16ms' }
+export const ScorecardVisual = (): JSX.Element => (
+  <div className="flex flex-col justify-between w-full h-full p-4 rounded-xl bg-[#071322]/80 border border-emerald-500/20 backdrop-blur-sm select-none gap-3">
+    {/* Scorecard Header */}
+    <div className="flex items-center justify-between pb-2.5 border-b border-[#1F2937]/70">
+      <div className="flex items-center gap-2.5">
+        <span className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center">
+          <CheckCircle2 className="w-3.5 h-3.5" />
+        </span>
+        <div>
+          <span className="text-xs font-bold text-white block leading-tight">
+            Diagnostic Scorecard
+          </span>
+          <span className="text-[10px] text-slate-400">Post-Session Evaluation</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+        <span className="text-xs font-mono font-bold text-emerald-400">88</span>
+        <span className="text-[10px] text-slate-400">/ 100</span>
+        <span className="text-[9px] uppercase font-bold text-emerald-300 ml-1 bg-emerald-500/20 px-1 py-0.5 rounded">
+          Strong
+        </span>
+      </div>
+    </div>
+
+    {/* Dimension Breakdown Bars */}
+    <div className="space-y-2 flex-1 flex flex-col justify-center">
+      {[
+        { label: 'Problem Solving & Logic', score: 92, barClass: 'bg-blue-500' },
+        { label: 'Technical Accuracy', score: 88, barClass: 'bg-emerald-500' },
+        { label: 'Communication Clarity', score: 84, barClass: 'bg-sky-400' },
+        { label: 'Code Quality & Style', score: 86, barClass: 'bg-purple-400' }
+      ].map(dim => (
+        <div key={dim.label} className="space-y-1">
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="text-slate-300 font-medium">{dim.label}</span>
+            <span className="font-mono text-slate-300 font-semibold">{dim.score}%</span>
+          </div>
+          <div className="h-1.5 w-full bg-[#111C2E] rounded-full overflow-hidden border border-[#1E293B]">
+            <div
+              className={`h-full ${dim.barClass} rounded-full`}
+              style={{ width: `${dim.score}%` }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Actionable recommendation pill */}
+    <div className="flex items-center gap-2 p-2 rounded-lg bg-blue-500/10 border border-blue-500/25 text-[11px] text-blue-200">
+      <span className="font-bold text-blue-400 shrink-0 text-[10px] uppercase tracking-wide">
+        Actionable Tip:
+      </span>
+      <span className="truncate text-slate-300">Explain your time-space trade-offs before typing code.</span>
+    </div>
+  </div>
+);
+
+const TOPIC_BADGES = [
+  { icon: Cpu, label: 'Operating Systems', sub: 'Processes, Threads & Memory' },
+  { icon: Layers, label: 'Computer Networks', sub: 'Protocols & Architecture' }
 ];
 
-export const AutomationVisual = (): JSX.Element => (
-  <div className="magic-bento__flow" style={vars({ '--n': TEST_STEPS.length })}>
-    <div className="magic-bento__flow-trigger magic-bento__tile">
-      <span className="magic-bento__flow-glyph">
-        <Terminal className="w-4 h-4 text-emerald-400" strokeWidth={2} />
-      </span>
-      <span className="magic-bento__flow-copy">
-        <span className="magic-bento__flow-name">Code Test Matrix</span>
-        <span className="magic-bento__flow-meta magic-bento__flow-hash">24 / 24 Passed</span>
-      </span>
-    </div>
-    <ol className="magic-bento__steps magic-bento__well">
-      <span className="magic-bento__rail" aria-hidden="true">
-        <span className="magic-bento__rail-fill" />
-      </span>
-      {TEST_STEPS.map((step, index) => (
-        <li key={step.label} className="magic-bento__step" style={vars({ '--i': index })}>
-          <span className="magic-bento__status">
-            <span className="magic-bento__pending" />
-            <span className="magic-bento__spinner" />
-            <span className="magic-bento__done">
-              <HugeiconsIcon icon={Tick02Icon} size={11} strokeWidth={2.6} />
+export const SystemsVisual = (): JSX.Element => (
+  <div className="flex flex-col justify-center h-full gap-2 p-1">
+    {TOPIC_BADGES.map((item) => (
+      <div
+        key={item.label}
+        className="flex items-center justify-between p-2 rounded-lg bg-[#0B1524]/70 border border-[#1E293B] text-[11px]"
+      >
+        <div className="flex items-center gap-2">
+          <item.icon className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+          <div className="min-w-0">
+            <span className="font-semibold text-slate-200 block text-[11px] leading-tight truncate">
+              {item.label}
             </span>
-          </span>
-          {step.label}
-          <span className="magic-bento__step-time">{step.time}</span>
-        </li>
-      ))}
-    </ol>
+            <span className="text-[9px] text-slate-400 block leading-tight truncate">
+              {item.sub}
+            </span>
+          </div>
+        </div>
+        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-400/10 text-amber-400 border border-amber-400/20 shrink-0 ml-1">
+          Ready
+        </span>
+      </div>
+    ))}
   </div>
 );
 
 const AI_NODES = [
-  { icon: Mic, label: 'Audio / Voice', x: '17%', y: '24%', color: 'text-sky-400' },
-  { icon: Code2, label: 'Code Sandbox', x: '83%', y: '24%', color: 'text-emerald-400' },
-  { icon: Layers, label: 'System Design', x: '17%', y: '78%', color: 'text-blue-400' },
-  { icon: FileText, label: 'Rubric Score', x: '83%', y: '78%', color: 'text-purple-400' }
+  { icon: Mic, label: 'Voice Dialogue', x: '17%', y: '24%', color: 'text-sky-400' },
+  { icon: Code2, label: 'Live Code Editor', x: '83%', y: '24%', color: 'text-emerald-400' },
+  { icon: Layers, label: 'Curated Topics', x: '17%', y: '78%', color: 'text-blue-400' },
+  { icon: FileText, label: 'Detailed Scores', x: '83%', y: '78%', color: 'text-purple-400' }
 ];
 
 export const IntegrationVisual = (): JSX.Element => (
@@ -257,35 +332,26 @@ export const IntegrationVisual = (): JSX.Element => (
     <span
       className="magic-bento__hub-node magic-bento__tile flex items-center justify-center"
       style={vars({ '--x': '50%', '--y': '51%', '--s': '34px', '--i': 0 })}
-      title="AI Technical Interview Engine"
+      title="Voice-Based AI Interview Coach"
     >
       <Brain className="w-4 h-4 text-blue-400" strokeWidth={2} />
     </span>
   </div>
 );
 
-const SYSTEM_GUARDS = [
-  { icon: Key01Icon, label: 'Thread Mutex Locks' },
-  { icon: FingerPrintIcon, label: 'Memory Barrier Isolation' }
-];
-
-export const SecurityVisual = (): JSX.Element => (
-  <div className="magic-bento__shield">
-    {SYSTEM_GUARDS.map((setting, index) => (
-      <div key={setting.label} className="magic-bento__setting magic-bento__tile">
-        <HugeiconsIcon icon={setting.icon} size={14} strokeWidth={1.8} />
-        <span className="magic-bento__setting-label">{setting.label}</span>
-        <span className="magic-bento__switch" style={vars({ '--i': index })} />
-      </div>
-    ))}
-  </div>
-);
+// Backward-compatible alias exports
+export const CollaborationVisual = VoiceDialogueVisual;
+export const AutomationVisual = ScorecardVisual;
+export const SecurityVisual = SystemsVisual;
 
 export const VISUALS: Record<BuiltInVisual, () => JSX.Element> = {
   analytics: AnalyticsVisual,
   dashboard: DashboardVisual,
-  collaboration: CollaborationVisual,
-  automation: AutomationVisual,
+  collaboration: VoiceDialogueVisual,
+  voice: VoiceDialogueVisual,
+  automation: ScorecardVisual,
+  scorecard: ScorecardVisual,
   integration: IntegrationVisual,
-  security: SecurityVisual
+  security: SystemsVisual,
+  systems: SystemsVisual
 };
