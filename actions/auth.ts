@@ -91,9 +91,14 @@ export async function signupUser(
     };
     console.error(`[SIGNUP_STEP_2_DB_CONNECT_ERROR] [${timestamp}] Failed to connect to MongoDB:`, errorDetails);
 
+    let hint = "";
+    if (errorDetails.message.includes("Server selection timed out") || errorDetails.message.includes("timed out")) {
+      hint = " (Tip: In MongoDB Atlas -> Network Access, ensure 0.0.0.0/0 is whitelisted so Vercel dynamic IPs can connect)";
+    }
+
     return {
       success: false,
-      error: `[Database Connection Error] Failed to connect to database: ${errorDetails.message}${debugContext}`,
+      error: `[Database Connection Error] Failed to connect to database: ${errorDetails.message}${debugContext}${hint}`,
     };
   }
 
