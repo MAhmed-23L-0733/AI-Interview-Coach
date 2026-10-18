@@ -10,7 +10,7 @@ export function NavbarSkeleton(): React.JSX.Element {
               <ShieldCheck className="h-5 w-5" />
             </div>
             <span className="font-bold tracking-tight text-zinc-900 text-lg dark:text-white">
-              ModeroIQ
+              AI Interview Coach
             </span>
           </div>
         </div>
