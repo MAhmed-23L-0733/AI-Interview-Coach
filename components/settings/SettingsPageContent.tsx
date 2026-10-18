@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
-import { useSidebarStore } from "@/lib/stores/useSidebarStore";
-import { cn } from "@/lib/utils";
+import { DashboardLayoutWrapper } from "@/components/dashboard/DashboardLayoutWrapper";
 import { useSettingsForm } from "@/hooks/useSettingsForm";
 import type { UserSettingsInput } from "@/lib/validations/settings";
 import { SettingsHeader } from "./SettingsHeader";
@@ -23,7 +22,6 @@ export function SettingsPageContent({
   initials = "AM",
   userName,
 }: SettingsPageContentProps): React.JSX.Element {
-  const { isExpanded } = useSidebarStore();
   const {
     form,
     isSaving,
@@ -39,17 +37,12 @@ export function SettingsPageContent({
   const isDirty = Object.keys(form.formState.dirtyFields).length > 0;
 
   return (
-    <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex w-full max-w-full overflow-x-hidden">
+    <div className="relative min-h-screen w-full bg-[#0B0F17] text-slate-100">
       {/* Desktop Sidebar & Mobile Nav */}
       <DashboardSidebar initials={initials} name={userName} />
 
       {/* Main Content Area */}
-      <main
-        className={cn(
-          "flex-1 w-full max-w-full min-w-0 transition-[padding] duration-300 ease-in-out",
-          isExpanded ? "md:pl-64" : "md:pl-[72px]"
-        )}
-      >
+      <DashboardLayoutWrapper>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-28 sm:pb-32">
           {/* Header */}
           <SettingsHeader />
@@ -80,7 +73,7 @@ export function SettingsPageContent({
           onDiscard={onDiscard}
           onSave={onSubmit}
         />
-      </main>
+      </DashboardLayoutWrapper>
     </div>
   );
 }

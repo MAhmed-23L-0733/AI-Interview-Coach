@@ -40,7 +40,7 @@ export function NextSessionCard(): React.JSX.Element {
           with targeted feedback when you&apos;re done.
         </p>
 
-        <div className="pt-2">
+        <div className="hidden md:block pt-2">
           <Link
             href={`/interview/${primaryTopicId}`}
             onClick={handleStartInterview}
@@ -55,6 +55,18 @@ export function NextSessionCard(): React.JSX.Element {
       {/* Right Column: Audio Radar & Online Status */}
       <div className="flex justify-center md:justify-end">
         <RadarVisualizer />
+      </div>
+
+      {/* Mobile Floating Action Button */}
+      <div className="fixed bottom-6 right-6 z-40 md:hidden">
+        <Link
+          href={`/interview/${primaryTopicId}`}
+          onClick={handleStartInterview}
+          aria-label="Start Interview Session"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#3B82F6] text-white shadow-[0_4px_24px_rgba(37,99,235,0.45)] transition-transform hover:bg-[#2563EB] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0F17]"
+        >
+          <Mic className="h-6 w-6 stroke-[2.5]" />
+        </Link>
       </div>
     </section>
   );
