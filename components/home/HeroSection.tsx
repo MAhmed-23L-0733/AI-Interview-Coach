@@ -8,7 +8,7 @@ export function HeroSection(): React.JSX.Element {
   return (
     <section className="relative isolate overflow-hidden">
       {/* First Fold: Full Viewport Hero Landing */}
-      <div className="relative min-h-[calc(100dvh-5rem)] flex flex-col justify-between items-center w-full">
+      <div className="relative min-h-dvh flex flex-col justify-between items-center w-full pt-20">
         {/* Interactive WebGL Magic Rings */}
         <HeroMagicRings />
 

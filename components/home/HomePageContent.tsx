@@ -7,7 +7,7 @@ import { CtaBanner } from "@/components/home/CtaBanner";
 
 export function HomePageContent(): React.JSX.Element {
   return (
-    <div className="flex flex-col w-full bg-[#0B0F17]">
+    <div className="flex flex-col w-full bg-[#0B0F17] -mt-20">
       <HeroSection />
       <TopicsGridSection />
       <FeaturesSection />
