@@ -12,7 +12,7 @@ export const metadata: Metadata = {
  */
 export default function SignupPage(): React.JSX.Element {
   return (
-    <div className="flex-1 bg-[#0B0F17]">
+    <div className="flex min-h-dvh flex-col w-full bg-[#0B0F17]">
       <SignupPageContent />
     </div>
   );

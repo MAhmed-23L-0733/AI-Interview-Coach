@@ -11,7 +11,7 @@ import { AudioLines } from "lucide-react";
  */
 export function SignupPageContent(): React.JSX.Element {
   return (
-    <div className="flex min-h-[calc(100dvh-4rem)] w-full bg-[#0B0F17]">
+    <div className="flex min-h-dvh w-full bg-[#0B0F17]">
       {/* Left Showcase Brand Panel (Hidden on screens < 1024px) */}
       <SignupShowcase />
 
