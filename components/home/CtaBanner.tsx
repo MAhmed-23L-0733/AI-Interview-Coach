@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function CtaBanner(): React.JSX.Element {
   return (
-    <section className="py-20 relative overflow-hidden" id="pricing">
+    <section className="py-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <ScrollReveal direction="up" distance={28} duration={0.5} scale={0.98}>
           <div className="relative rounded-3xl bg-[#111827] border border-blue-500/40 p-10 md:p-16 text-center overflow-hidden shadow-2xl">

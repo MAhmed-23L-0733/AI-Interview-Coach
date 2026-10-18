@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { TopicsGridSection } from "@/components/home/TopicsGridSection";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { HowItWorksSection } from "@/components/home/HowItWorksSection";
+import { PricingSection } from "@/components/home/pricing/PricingSection";
 import { CtaBanner } from "@/components/home/CtaBanner";
 
 export function HomePageContent(): React.JSX.Element {
@@ -11,6 +12,7 @@ export function HomePageContent(): React.JSX.Element {
       <TopicsGridSection />
       <FeaturesSection />
       <HowItWorksSection />
+      <PricingSection />
       <CtaBanner />
     </div>
   );
