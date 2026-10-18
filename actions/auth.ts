@@ -72,6 +72,18 @@ export async function signupUser(
     usersCollection = db.collection("users");
     console.log(`[SIGNUP_STEP_2_DB_CONNECT_SUCCESS] [${timestamp}] MongoDB connected. Users collection acquired.`);
   } catch (dbError) {
+    let debugContext = "";
+    try {
+      const rawEnv = process.env.MONGODB_URI?.trim() || "";
+      const cleaned = rawEnv.replace(/^["']/, "").replace(/["']$/, "").trim();
+      if (cleaned) {
+        const u = new URL(cleaned);
+        debugContext = ` [Target: user="${u.username}", host="${u.host}", db="${u.pathname.replace(/^\//, "") || "(default: test)"}", passwordLength=${u.password.length}]`;
+      }
+    } catch {
+      debugContext = " [URI format could not be parsed]";
+    }
+
     const errorDetails = {
       name: dbError instanceof Error ? dbError.name : "UnknownError",
       message: dbError instanceof Error ? dbError.message : String(dbError),
@@ -81,7 +93,7 @@ export async function signupUser(
 
     return {
       success: false,
-      error: `[Database Connection Error] Failed to connect to database: ${errorDetails.message}`,
+      error: `[Database Connection Error] Failed to connect to database: ${errorDetails.message}${debugContext}`,
     };
   }
 

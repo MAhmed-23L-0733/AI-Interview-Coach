@@ -1,6 +1,7 @@
 import { MongoClient, type Db } from "mongodb";
 
-const uri = process.env.MONGODB_URI;
+const rawUri = process.env.MONGODB_URI?.trim();
+const uri = rawUri ? rawUri.replace(/^["']/, "").replace(/["']$/, "").trim() : undefined;
 const options = {};
 
 declare global {
