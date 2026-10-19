@@ -13,8 +13,8 @@ export function HeroSection(): React.JSX.Element {
         <HeroMagicRings />
 
         {/* Background Ambient Glow Rings */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[680px] h-[680px] rounded-full bg-blue-500/10 blur-[140px] pointer-events-none z-0" />
-        <div className="absolute top-1/3 left-1/4 w-[380px] h-[380px] rounded-full bg-emerald-500/10 blur-[100px] pointer-events-none z-0" />
+        <div className="absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[680px] h-[680px] rounded-full bg-blue-500/10 blur-[140px] pointer-events-none z-0" />
+        <div className="absolute top-[44%] left-1/4 w-[380px] h-[380px] rounded-full bg-emerald-500/10 blur-[100px] pointer-events-none z-0" />
 
         {/* Content Container - Vertically Centered in Fold */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex-1 flex flex-col justify-center items-center pt-8 sm:pt-12">

@@ -40,7 +40,7 @@ export function HeroMagicRings(): React.JSX.Element {
         radiusStep={0.18}
         expansion={0.12}
         tilt={-5}
-        centerOffset={[0, 0.08]}
+        centerOffset={[0, -0.02]}
         followMouse={true}
         mouseInfluence={0.16}
         hoverScale={1.12}
