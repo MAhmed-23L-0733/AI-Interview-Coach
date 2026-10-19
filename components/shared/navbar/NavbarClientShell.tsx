@@ -14,26 +14,18 @@ interface NavbarClientShellProps {
 
 export function NavbarClientShell({ user }: NavbarClientShellProps): React.JSX.Element {
   const { isScrolled, isHomePage } = useNavbarScroll(20);
-  const isFloating = isScrolled;
   const isTransparent = isHomePage && !isScrolled;
 
   return (
     <header
       className={cn(
-        "sticky z-50 w-full transition-all duration-300 ease-in-out pointer-events-none",
-        isFloating ? "top-3 md:top-4 px-3 sm:px-6 md:px-8" : "top-0 px-0"
+        "sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-200 ease-out",
+        isTransparent
+          ? "border-b border-transparent bg-transparent shadow-none"
+          : "border-b border-white/[0.08] bg-[#0B0F17]/80 backdrop-blur-xl backdrop-saturate-150 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
       )}
     >
-      <div
-        className={cn(
-          "pointer-events-auto mx-auto flex items-center justify-between transition-all duration-300 ease-in-out",
-          isFloating
-            ? "h-16 w-full max-w-6xl rounded-2xl md:rounded-full border border-white/[0.08] bg-[#0B0F17]/85 px-5 md:px-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur-xl backdrop-saturate-150"
-            : isTransparent
-            ? "h-20 w-full max-w-7xl rounded-none border-b-0 border-transparent bg-transparent px-6 md:px-12 shadow-none"
-            : "h-20 w-full border-b border-white/[0.08] bg-[#0B0F17]/80 px-6 md:px-12 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150"
-        )}
-      >
+      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 md:px-12">
         <NavbarBrand />
         <NavbarNavLinks />
         <NavbarActions user={user} />

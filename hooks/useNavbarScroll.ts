@@ -21,8 +21,16 @@ export function useNavbarScroll(threshold: number = 20): NavbarScrollState {
     let ticking = false;
 
     const evaluateScroll = (): void => {
-      const scrolled = window.scrollY > threshold;
-      setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+      const currentY = window.scrollY;
+      setIsScrolled((prev) => {
+        if (!prev && currentY > threshold) {
+          return true;
+        }
+        if (prev && currentY < Math.max(0, threshold - 10)) {
+          return false;
+        }
+        return prev;
+      });
       ticking = false;
     };
 

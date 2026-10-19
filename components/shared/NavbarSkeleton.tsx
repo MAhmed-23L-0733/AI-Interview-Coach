@@ -1,7 +1,7 @@
 export function NavbarSkeleton(): React.JSX.Element {
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0B0F17]/80 backdrop-blur-xl">
-      <div className="flex justify-between items-center w-full px-6 md:px-12 max-w-7xl mx-auto h-20">
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#0B0F17]/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 md:px-12">
         {/* Brand Skeleton */}
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-xl bg-slate-800 animate-pulse" />
